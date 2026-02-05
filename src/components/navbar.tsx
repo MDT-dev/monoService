@@ -3,23 +3,25 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { useLanguage } from "@/contexts/language-context"
 import { LanguageToggle } from "@/components/language-toggle"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { ShoppingCart, Search, Menu, X } from "lucide-react"
-import { Input } from "@/components/ui/input"
+import { ShoppingCart, Menu, X } from "lucide-react"
 import { useState } from "react"
 import { useCart } from "@/lib/cart-context"
+import ActionSearchBar from "./action-search-bar"
+import Logo from "../../public/assets/logo2.png"
+import Image from "next/image"
 
 const navigation = [
-  { name: "nav.home", href: "/" },
-  { name: "nav.products", href: "/produtos" },
-  { name: "nav.contact", href: "/contacto" },
+  { name: "Home", href: "/" },
+  { name: "Produto", href: "/produtos" },
+  { name: "Sobre nós", href: "/sobre-nos" },
+  { name: "Notícias", href: "/noticias" },
+  { name: "Contacto", href: "/contacto" },
 ]
 
 export function Navbar() {
   const pathname = usePathname()
-  const { t } = useLanguage()
   const { itemCount } = useCart()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -32,7 +34,12 @@ export function Navbar() {
             href="/"
             className="text-xl font-bold text-primary flex-shrink-0"
           >
-            {t("nav.brand")}
+            <Image
+              width={100}
+              height={100}
+              alt="Logo do Milones"
+              src={Logo}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -49,7 +56,7 @@ export function Navbar() {
                       : "text-muted-foreground hover:text-foreground hover:bg-muted",
                   )}
                 >
-                  {t(item.name)}
+                  {item.name}
                 </Link>
               ))}
             </div>
@@ -57,14 +64,7 @@ export function Navbar() {
 
           {/* Search Bar */}
           <div className="hidden sm:flex flex-1 max-w-xs mx-4">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder={t("nav.search")}
-                className="pl-10 pr-4 py-2 text-sm rounded-lg border border-border bg-muted/50 focus:bg-muted focus:border-accent transition-all"
-              />
-            </div>
+            <ActionSearchBar />
           </div>
 
           {/* Right side items */}
@@ -72,7 +72,7 @@ export function Navbar() {
             <Link
               href="/carrinho"
               className="relative p-2.5 text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-lg"
-              aria-label={t("nav.cart")}
+              aria-label="Carrinho"
             >
               <ShoppingCart className="w-5 h-5" />
               {itemCount > 0 && (
@@ -109,7 +109,7 @@ export function Navbar() {
                       : "text-muted-foreground hover:text-foreground hover:bg-muted",
                   )}
                 >
-                  {t(item.name)}
+                  {item.name}
                 </Link>
               ))}
             </div>

@@ -27,7 +27,7 @@ const promoData: PromoSlide[] = [
     description: "Aproveite até 50% de desconto em produtos selecionados",
     discount: "-50%",
     badge: "OFERTA LIMITADA",
-    gradient: "from-blue-500 via-blue-400 to-cyan-400",
+    gradient: "from-green-500 via-green-400 to-cyan-400",
     textColor: "text-white",
     ctaText: "Comprar Agora",
     ctaLink: "/produtos",

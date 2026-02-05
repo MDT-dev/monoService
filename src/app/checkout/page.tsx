@@ -2,17 +2,16 @@
 
 import type React from "react"
 import { useState, useMemo } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Check, AlertCircle } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { useLanguage } from "@/contexts/language-context"
 
-// Generate a unique order ID
-const generateOrderId = (): string => {
+// Gerar referência única do pedido
+const gerarReferenciaPedido = (): string => {
   const randomPart = Math.random().toString(36).substr(2, 9).toUpperCase()
   return `MS-${randomPart}`
 }
@@ -41,8 +40,8 @@ interface FormErrors {
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { t } = useLanguage()
-  const orderId = useMemo(() => generateOrderId(), [])
+  const referenciaPedido = useMemo(() => gerarReferenciaPedido(), [])
+
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -53,6 +52,7 @@ export default function CheckoutPage() {
     country: "",
     paymentMethod: "",
   })
+
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderComplete, setOrderComplete] = useState(false)
@@ -62,53 +62,30 @@ export default function CheckoutPage() {
   const tax = subtotal * 0.23
   const total = subtotal + shipping + tax
 
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
+  const validarFormulario = (): boolean => {
+    const novosErros: FormErrors = {}
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required"
-    }
-
+    if (!formData.fullName.trim()) novosErros.fullName = "O nome completo é obrigatório"
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
+      novosErros.email = "O email é obrigatório"
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
+      novosErros.email = "Informe um email válido"
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required"
-    }
+    if (!formData.phone.trim()) novosErros.phone = "O número de telefone é obrigatório"
+    if (!formData.address.trim()) novosErros.address = "O endereço é obrigatório"
+    if (!formData.city.trim()) novosErros.city = "A cidade é obrigatória"
+    if (!formData.postalCode.trim()) novosErros.postalCode = "O código postal é obrigatório"
+    if (!formData.country.trim()) novosErros.country = "O país é obrigatório"
+    if (!formData.paymentMethod) novosErros.paymentMethod = "Selecione um método de pagamento"
 
-    if (!formData.address.trim()) {
-      newErrors.address = "Delivery address is required"
-    }
-
-    if (!formData.city.trim()) {
-      newErrors.city = "City is required"
-    }
-
-    if (!formData.postalCode.trim()) {
-      newErrors.postalCode = "Postal code is required"
-    }
-
-    if (!formData.country.trim()) {
-      newErrors.country = "Country is required"
-    }
-
-    if (!formData.paymentMethod) {
-      newErrors.paymentMethod = "Please select a payment method"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    setErrors(novosErros)
+    return Object.keys(novosErros).length === 0
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!validateForm()) {
-      return
-    }
+    if (!validarFormulario()) return
 
     setIsSubmitting(true)
     await new Promise((resolve) => setTimeout(resolve, 2000))
@@ -116,10 +93,13 @@ export default function CheckoutPage() {
     setIsSubmitting(false)
   }
 
+  /* =======================
+     TELA DE SUCESSO
+  ======================== */
   if (orderComplete) {
     return (
       <div className="min-h-screen bg-background py-12">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto px-4">
           <Card>
             <CardContent className="p-8 text-center">
               <div className="mb-6 flex justify-center">
@@ -127,44 +107,44 @@ export default function CheckoutPage() {
                   <Check className="w-8 h-8 text-green-600" />
                 </div>
               </div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">{t("contact.success")}</h1>
-              <p className="text-lg text-muted-foreground mb-8">
-                Your order has been placed successfully. You will receive a confirmation email shortly.
+
+              <h1 className="text-3xl font-bold mb-2">
+                Pedido realizado com sucesso
+              </h1>
+
+              <p className="text-muted-foreground mb-8">
+                O seu pedido foi confirmado. Em breve receberá um e-mail com os detalhes.
               </p>
 
               <div className="bg-muted p-6 rounded-lg mb-8 text-left">
-                <h3 className="font-semibold text-foreground mb-4">Order Details</h3>
+                <h3 className="font-semibold mb-4">Detalhes do Pedido</h3>
+
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Order Reference:</span>
-                    <span className="font-medium">{orderId}</span>
+                    <span className="text-muted-foreground">Referência:</span>
+                    <span className="font-medium">{referenciaPedido}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal:</span>
-                    <span>AOA{subtotal.toFixed(2)}</span>
+                    <span>AOA {subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Tax (23%):</span>
-                    <span>AOA{tax.toFixed(2)}</span>
+                    <span className="text-muted-foreground">IVA (23%):</span>
+                    <span>AOA {tax.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between border-t border-border pt-2 mt-2 font-bold">
+                  <div className="flex justify-between border-t pt-2 font-bold">
                     <span>Total:</span>
-                    <span className="text-accent">AOA{total.toFixed(2)}</span>
+                    <span className="text-accent">AOA {total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <Button
-                  onClick={() => router.push("/produtos")}
-                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-                >
-                  Continue Shopping
-                </Button>
-                <Button onClick={() => router.push("/")} variant="outline" className="w-full">
-                  Return Home
-                </Button>
-              </div>
+              <Button onClick={() => router.push("/produtos")} className="w-full mb-3">
+                Continuar a comprar
+              </Button>
+              <Button onClick={() => router.push("/")} variant="outline" className="w-full">
+                Voltar para o início
+              </Button>
             </CardContent>
           </Card>
         </div>
@@ -172,222 +152,133 @@ export default function CheckoutPage() {
     )
   }
 
+  /* =======================
+     CHECKOUT
+  ======================== */
   return (
     <div className="min-h-screen bg-background py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">{t("checkout.title")}</h1>
-          <p className="text-muted-foreground">Complete your purchase securely</p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-4xl font-bold mb-2">Finalizar Compra</h1>
+        <p className="text-muted-foreground mb-8">
+          Conclua a sua compra de forma segura
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Checkout Form */}
+          {/* FORMULÁRIO */}
           <div className="lg:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle>Delivery & Payment Information</CardTitle>
+                <CardTitle>Informações de Entrega e Pagamento</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Personal Info Section */}
+                  {/* DADOS PESSOAIS */}
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-4">Personal Information</h3>
-                    <div className="space-y-4">
+                    <h3 className="text-lg font-semibold mb-4">Dados Pessoais</h3>
+
+                    <Label>Nome Completo *</Label>
+                    <Input
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                    />
+                    {errors.fullName && <p className="text-destructive text-sm">{errors.fullName}</p>}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                       <div>
-                        <Label htmlFor="fullName">{t("checkout.fullName")} *</Label>
+                        <Label>Email *</Label>
                         <Input
-                          id="fullName"
-                          type="text"
-                          value={formData.fullName}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
-                          className={errors.fullName ? "border-destructive" : ""}
-                          placeholder="John Doe"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
-                        {errors.fullName && <p className="text-sm text-destructive mt-1">{errors.fullName}</p>}
+                        {errors.email && <p className="text-destructive text-sm">{errors.email}</p>}
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="email">{t("checkout.email")} *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                            className={errors.email ? "border-destructive" : ""}
-                            placeholder="john@example.com"
-                          />
-                          {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
-                        </div>
-
-                        <div>
-                          <Label htmlFor="phone">{t("checkout.phone")} *</Label>
-                          <Input
-                            id="phone"
-                            type="tel"
-                            value={formData.phone}
-                            onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
-                            className={errors.phone ? "border-destructive" : ""}
-                            placeholder="+244 942 093 530"
-                          />
-                          {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone}</p>}
-                        </div>
+                      <div>
+                        <Label>Número de Telefone *</Label>
+                        <Input
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        />
+                        {errors.phone && <p className="text-destructive text-sm">{errors.phone}</p>}
                       </div>
                     </div>
                   </div>
 
-                  {/* Delivery Address Section */}
-                  <div className="border-t border-border pt-6">
-                    <h3 className="text-lg font-semibold text-foreground mb-4">Delivery Address</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="address">{t("checkout.address")} *</Label>
-                        <Input
-                          id="address"
-                          type="text"
-                          value={formData.address}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, address: e.target.value }))}
-                          className={errors.address ? "border-destructive" : ""}
-                          placeholder="123 Main Street"
-                        />
-                        {errors.address && <p className="text-sm text-destructive mt-1">{errors.address}</p>}
-                      </div>
+                  {/* ENDEREÇO */}
+                  <div className="border-t pt-6">
+                    <h3 className="text-lg font-semibold mb-4">Endereço de Entrega</h3>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                          <Label htmlFor="city">{t("checkout.city")} *</Label>
-                          <Input
-                            id="city"
-                            type="text"
-                            value={formData.city}
-                            onChange={(e) => setFormData((prev) => ({ ...prev, city: e.target.value }))}
-                            className={errors.city ? "border-destructive" : ""}
-                            placeholder="Lisbon"
-                          />
-                          {errors.city && <p className="text-sm text-destructive mt-1">{errors.city}</p>}
-                        </div>
+                    <Label>Endereço *</Label>
+                    <Input
+                      value={formData.address}
+                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    />
+                    {errors.address && <p className="text-destructive text-sm">{errors.address}</p>}
 
-                        <div>
-                          <Label htmlFor="postalCode">{t("checkout.postalCode")} *</Label>
-                          <Input
-                            id="postalCode"
-                            type="text"
-                            value={formData.postalCode}
-                            onChange={(e) => setFormData((prev) => ({ ...prev, postalCode: e.target.value }))}
-                            className={errors.postalCode ? "border-destructive" : ""}
-                            placeholder="1000-001"
-                          />
-                          {errors.postalCode && <p className="text-sm text-destructive mt-1">{errors.postalCode}</p>}
-                        </div>
-
-                        <div>
-                          <Label htmlFor="country">{t("checkout.country")} *</Label>
-                          <Input
-                            id="country"
-                            type="text"
-                            value={formData.country}
-                            onChange={(e) => setFormData((prev) => ({ ...prev, country: e.target.value }))}
-                            className={errors.country ? "border-destructive" : ""}
-                            placeholder="Portugal"
-                          />
-                          {errors.country && <p className="text-sm text-destructive mt-1">{errors.country}</p>}
-                        </div>
-                      </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                      <Input placeholder="Cidade" value={formData.city}
+                        onChange={(e) => setFormData({ ...formData, city: e.target.value })} />
+                      <Input placeholder="Código Postal" value={formData.postalCode}
+                        onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })} />
+                      <Input placeholder="País" value={formData.country}
+                        onChange={(e) => setFormData({ ...formData, country: e.target.value })} />
                     </div>
                   </div>
 
-                  {/* Payment Section */}
-                  <div className="border-t border-border pt-6">
-                    <h3 className="text-lg font-semibold text-foreground mb-4">{t("checkout.paymentMethod")}</h3>
+                  {/* PAGAMENTO */}
+                  <div className="border-t pt-6">
+                    <h3 className="text-lg font-semibold mb-4">Método de Pagamento</h3>
                     <Select
                       value={formData.paymentMethod}
-                      onValueChange={(value) => setFormData((prev) => ({ ...prev, paymentMethod: value }))}
+                      onValueChange={(v) => setFormData({ ...formData, paymentMethod: v })}
                     >
-                      <SelectTrigger className={errors.paymentMethod ? "border-destructive" : ""}>
-                        <SelectValue placeholder="Select payment method" />
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o método de pagamento" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="credit-card">{t("checkout.creditCard")}</SelectItem>
-                        <SelectItem value="paypal">{t("checkout.paypal")}</SelectItem>
-                        <SelectItem value="bank-transfer">{t("checkout.bankTransfer")}</SelectItem>
+                        <SelectItem value="credit">Cartão de Crédito</SelectItem>
+                        <SelectItem value="paypal">PayPal</SelectItem>
+                        <SelectItem value="bank">Transferência Bancária</SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.paymentMethod && <p className="text-sm text-destructive mt-1">{errors.paymentMethod}</p>}
+                    {errors.paymentMethod && <p className="text-destructive text-sm">{errors.paymentMethod}</p>}
                   </div>
 
-                  {/* Security Notice */}
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3">
-                    <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-blue-900">
-                      Your payment information is encrypted and secure. We never store your full credit card details.
-                    </div>
+                  {/* SEGURANÇA */}
+                  <div className="bg-green-50 border border-[#1F8A70] p-4 rounded-lg flex gap-3">
+                    <AlertCircle className="w-5 h-5 text-[#1F8A70]" />
+                    <p className="text-sm text-[#1F8A70]">
+                      As suas informações de pagamento são criptografadas e seguras.
+                    </p>
                   </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-3 text-base h-auto"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? t("checkout.processing") : t("checkout.placeOrder")}
+                  <Button type="submit" disabled={isSubmitting} className="w-full">
+                    {isSubmitting ? "A processar..." : "Confirmar Pedido"}
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Order Summary Sidebar */}
-          <div className="lg:col-span-1">
+          {/* RESUMO */}
+          <div>
             <Card className="sticky top-8">
               <CardHeader>
-                <CardTitle>{t("checkout.orderSummary")}</CardTitle>
+                <CardTitle>Resumo do Pedido</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <div className="flex gap-3 mb-4">
-                    <div className="w-16 h-16 rounded-lg bg-muted flex-shrink-0 flex items-center justify-center">
-                      <span className="text-2xl">📦</span>
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground text-sm">Premium Business Solution</h3>
-                      <p className="text-xs text-muted-foreground">Professional Package</p>
-                      <p className="text-xs text-muted-foreground mt-1">Qty: 1</p>
-                    </div>
-                  </div>
+              <CardContent>
+                <div className="flex justify-between mb-2">
+                  <span>Subtotal</span>
+                  <span>AOA {subtotal.toFixed(2)}</span>
                 </div>
-
-                <div className="border-t border-border pt-4 space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{t("checkout.subtotal")}</span>
-                    <span className="font-medium">AOA{subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{t("checkout.shipping")}</span>
-                    <span className="font-medium text-green-600">Free</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Tax (23%)</span>
-                    <span className="font-medium">AOA{tax.toFixed(2)}</span>
-                  </div>
-
-                  <div className="border-t border-border pt-3 flex justify-between">
-                    <span className="font-bold text-foreground">{t("checkout.total")}</span>
-                    <span className="text-2xl font-bold text-accent">AOA{total.toFixed(2)}</span>
-                  </div>
+                <div className="flex justify-between mb-2">
+                  <span>Envio</span>
+                  <span className="text-green-600">Grátis</span>
                 </div>
-
-                <div className="bg-muted p-3 rounded-lg space-y-2 text-xs text-muted-foreground">
-                  <div className="flex items-start gap-2">
-                    <span className="text-accent mt-0.5">✓</span>
-                    <span>Free shipping on all orders</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-accent mt-0.5">✓</span>
-                    <span>30-day return policy</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-accent mt-0.5">✓</span>
-                    <span>1-year product warranty</span>
-                  </div>
+                <div className="flex justify-between font-bold border-t pt-2">
+                  <span>Total</span>
+                  <span className="text-accent">AOA {total.toFixed(2)}</span>
                 </div>
               </CardContent>
             </Card>

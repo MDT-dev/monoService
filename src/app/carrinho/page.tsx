@@ -31,7 +31,6 @@ export default function CartPage() {
 ${itemsList}
 
 *Subtotal:* AOA${subtotal.toFixed(2)}
-*IVA (23%):* AOA${tax.toFixed(2)}
 *Envio:* Grátis
 *Total:* AOA${finalTotal.toFixed(2)}
 
@@ -222,7 +221,6 @@ Obrigado!`
                       <span className="font-medium text-green-600">Grátis</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">IVA (23%)</span>
                       <span className="font-medium">AOA{tax.toFixed(2)}</span>
                     </div>
                     <div className="border-t border-border pt-3 flex justify-between">

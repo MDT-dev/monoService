@@ -1,24 +1,27 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 
 import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
+import Footer from "@/components/footer/footer"
 import { LanguageProvider } from "@/contexts/language-context"
 import { CartProvider } from "@/lib/cart-context"
 import { Suspense } from "react"
 import "./globals.css"
+import { Providers } from "@/contexts/providers";
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
-  title: "Mono Service Lda - Soluções Profissionais",
+  title: "Milones Lda - Soluções Profissionais",
   description:
-    "Mono Service Lda oferece produtos e serviços de qualidade. Explore nosso catálogo completo com fácil busca, filtros inteligentes e pagamento seguro.",
+    "Milones Lda oferece produtos e serviços de qualidade. Explore nosso catálogo completo com fácil busca, filtros inteligentes e pagamento seguro.",
   generator: "v0.app",
-  colorScheme: "light dark",
 }
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+};
 
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,18 +50,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning  className={inter.variable}>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body  className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <LanguageProvider>
           <CartProvider>
-            <div className="min-h-screen flex flex-col">
+            <div className="">
               <Suspense fallback={<div>Loading...</div>}>
                 <Navbar />
               </Suspense>
-              <main className="flex-1">{children}</main>
+              <main className=""> <Providers>{children} </Providers></main>
+              <Toaster />
               <Suspense fallback={<div>Loading...</div>}>
                 <Footer />
               </Suspense>

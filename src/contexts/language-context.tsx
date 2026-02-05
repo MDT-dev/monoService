@@ -18,7 +18,7 @@ const translations = {
     "nav.products": "Products",
     "nav.contact": "Contact",
     "nav.cart": "Cart",
-    "nav.brand": "Mono Service",
+    "nav.brand": "Milones",
     "nav.search": "Search products...",
 
     // Hero Section
@@ -77,14 +77,14 @@ const translations = {
     // Footer
     "footer.about": "About Us",
     "footer.aboutText":
-      "Mono Service Lda is committed to delivering quality products and exceptional customer service.",
+      "Milones Lda is committed to delivering quality products and exceptional customer service.",
     "footer.quickLinks": "Quick Links",
     "footer.contact": "Contact Us",
     "footer.address": "123 Business Street, City, Country",
     "footer.phone": "+244 942 093 530",
     "footer.email": "info@monoservice.com",
     "footer.followUs": "Follow Us",
-    "footer.copyright": "© 2026 Mono Service Lda. All rights reserved.",
+    "footer.copyright": "© 2026 Milones Lda. All rights reserved.",
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
     "footer.shipping": "Shipping Info",
@@ -111,7 +111,7 @@ const translations = {
     "nav.products": "Produtos",
     "nav.contact": "Contacto",
     "nav.cart": "Carrinho",
-    "nav.brand": "Mono Service",
+    "nav.brand": "Milones",
     "nav.search": "Pesquisar produtos...",
 
     // Hero
@@ -170,14 +170,14 @@ const translations = {
     // Rodapé
     "footer.about": "Sobre Nós",
     "footer.aboutText":
-      "Mono Service Lda está comprometida em oferecer produtos de qualidade e atendimento excepcional.",
+      "Milones Lda está comprometida em oferecer produtos de qualidade e atendimento excepcional.",
     "footer.quickLinks": "Links Rápidos",
     "footer.contact": "Entre em Contacto",
     "footer.address": "123 Rua de Negócios, Cidade, País",
     "footer.phone": "+244 942 093 530",
     "footer.email": "info@monoservice.com",
     "footer.followUs": "Siga-nos",
-    "footer.copyright": "© 2026 Mono Service Lda. Todos os direitos reservados.",
+    "footer.copyright": "© 2026 Milones Lda. Todos os direitos reservados.",
     "footer.privacy": "Política de Privacidade",
     "footer.terms": "Termos de Serviço",
     "footer.shipping": "Informações de Envio",
