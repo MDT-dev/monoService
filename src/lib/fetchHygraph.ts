@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const HYGRAPH_URL = process.env.HYGRAPH_API_URL||"";
-const HYGRAPH_TOKEN = process.env.HYGRAPH_TOKEN ||"";
 
 type FetchHygraphParams = {
   query: string;
@@ -18,10 +17,7 @@ export async function fetchHygraph<T>({
   try {
     const res = await fetch(HYGRAPH_URL, {
       method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     ...(HYGRAPH_TOKEN ? { Authorization: `Bearer ${HYGRAPH_TOKEN}` } : {}),
-    //   },
+
       body: JSON.stringify({
         query,
         variables,

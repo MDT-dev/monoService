@@ -1,42 +1,31 @@
 "use client"
 
 import type React from "react"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ShoppingCart, Heart } from "lucide-react"
-import Link from "next/link"
-import { useCart } from "@/lib/cart-context"
 import { useState } from "react"
-import Image, { StaticImageData } from "next/image"
+import Image from "next/image"
+import { Heart, Share2, ShoppingCart } from "lucide-react"
+import { useCart } from "@/lib/cart-context"
+import { Product } from "@/types/product"
+import { formatKz } from "@/util/formatCurrency"
+import { ProductDetailsModal } from "./product-details-modal"
+import { Badge } from "./ui/badge"
 
-interface ProductCardProps {
-  id: string
-  name: string
-  category: string
-  price: number
-  originalPrice?: number
-  image: StaticImageData
-  rating: number
-  reviews: number
-  inStock: boolean
-}
-
-export const ProductCard: React.FC<ProductCardProps> = ({
+export const ProductCard: React.FC<Product> = ({
   id,
   name,
-  category,
   price,
-  originalPrice,
-  image,
-  rating,
-  reviews,
-  inStock,
+  promoPrice,
+  shortDescription,
+  thumbnail,
+  isActive,
+  subCategory,
 }) => {
   const { addToCart } = useCart()
   const [showSuccess, setShowSuccess] = useState(false)
   const [isWishlisted, setIsWishlisted] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
-  const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0
+  const discount = promoPrice ? Math.round(((promoPrice - price) / promoPrice) * 100) : 0
 
   const handleAddToCart = () => {
     addToCart({
@@ -44,96 +33,134 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       name,
       price,
       quantity: 1,
-      image: image ,
-      category,
+      image: thumbnail.url,
+      category: subCategory?.category?.name,
     })
     setShowSuccess(true)
     setTimeout(() => setShowSuccess(false), 2000)
   }
 
   return (
-    <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full group border-0 bg-card">
-      {/* Product Image Container */}
-      <div className="relative bg-muted overflow-hidden aspect-square">
-        <Image
-       
-          src={image }
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
+    <>
+      {/* Minimalist Card */}
+      <div className="group bg-white rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md border border-gray-100">
 
-        {/* Discount Badge */}
-        {discount > 0 && (
-          <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-            -{discount}%
+        {/* Image Container */}
+        <div className="relative aspect-square bg-gray-50 overflow-hidden">
+          <Image
+            width={250}
+            height={250}
+            src={thumbnail.url}
+            alt={name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+
+          {/* Quick Action Buttons - Top Right */}
+          <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button
+              onClick={() => setIsWishlisted(!isWishlisted)}
+              className="bg-white p-2 rounded-full hover:bg-gray-100 shadow-sm transition-colors"
+              aria-label="Add to wishlist"
+            >
+              <Heart
+                className={`w-5 h-5 ${isWishlisted ? "fill-red-500 text-red-500" : "text-gray-600"}`}
+              />
+            </button>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-white p-2 rounded-full hover:bg-gray-100 shadow-sm transition-colors"
+              aria-label="View details"
+            >
+              <Share2 className="w-5 h-5 text-gray-600" />
+            </button>
           </div>
-        )}
 
-        {/* Stock Status */}
-        {!inStock && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <span className="text-white font-semibold">Fora de Estoque</span>
-          </div>
-        )}
+          {/* Discount Badge */}
+          {discount > 0 && (
+            <div className="absolute top-3 left-3 bg-red-500 text-white px-2.5 py-1 rounded text-xs font-semibold">
+              -{discount}%
+            </div>
+          )}
 
-        {/* Wishlist Button */}
-        <button
-          onClick={() => setIsWishlisted(!isWishlisted)}
-          className={`absolute top-4 left-4 rounded-full p-2.5 shadow-lg transition-all duration-300 ${isWishlisted ? "bg-primary text-primary-foreground" : "bg-white/95 dark:bg-gray-800/95 hover:bg-white dark:hover:bg-gray-700 text-foreground"
-            }`}
-        >
-          <Heart className={`w-5 h-5 ${isWishlisted ? "fill-current" : ""}`} />
-        </button>
+          {/* Stock Status Overlay */}
+          {!isActive && (
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <span className="text-white text-sm font-medium">Fora de Estoque</span>
+            </div>
+          )}
 
-        {/* Success Indicator */}
-        {showSuccess && (
-          <div className="absolute inset-0 bg-green-500/80 flex items-center justify-center rounded-lg">
-            <span className="text-white font-bold text-lg">Adicionado ao Carrinho!</span>
-          </div>
-        )}
-      </div>
-
-      {/* Product Info */}
-      <CardContent className="flex-1 p-5">
-        <p className="text-xs text-primary uppercase tracking-widest font-bold mb-2">{category}</p>
-        <Link href={`/produto/${id}`}>
-          <h3 className="font-bold text-foreground line-clamp-2 hover:text-primary transition-colors text-lg mb-3">
-            {name}
-          </h3>
-        </Link>
-
-        {/* Rating */}
-        <div className="flex items-center gap-2 mb-4">
-          <div className="flex text-amber-400">
-            {[...Array(5)].map((_, i) => (
-              <span key={i} className="text-lg">
-                {i < Math.round(rating) ? "★" : "☆"}
-              </span>
-            ))}
-          </div>
-          <span className="text-xs text-muted-foreground font-medium">({reviews})</span>
-        </div>
-
-        {/* Price */}
-        <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold text-primary">{price.toFixed(2)}AOA</span>
-          {originalPrice && (
-            <span className="text-sm text-muted-foreground line-through">{originalPrice.toFixed(2)}AOA</span>
+          {/* Success Toast */}
+          {showSuccess && (
+            <div className="absolute inset-0 bg-green-500/90 flex items-center justify-center">
+              <span className="text-white font-medium">Adicionado!</span>
+            </div>
           )}
         </div>
-      </CardContent>
 
-      {/* Add to Cart Button */}
-      <CardFooter className="p-5 pt-0">
-        <Button
-          onClick={handleAddToCart}
-          disabled={!inStock}
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2.5 disabled:opacity-50 transition-all duration-300 shadow-lg hover:shadow-xl"
-        >
-          <ShoppingCart className="w-5 h-5 mr-2" />
-          {inStock ? "Adicionar ao Carrinho" : "Indisponível"}
-        </Button>
-      </CardFooter>
-    </Card>
+        {/* Content - Minimalist Clean */}
+        <div className="p-4 space-y-3">
+
+          {/* Category */}
+          <p className="text-xs text-gray-500 uppercase tracking-wide font-medium">
+            {subCategory?.category?.name || "Produto"} <Badge className="text-[9px] normal-case ">{subCategory?.name}</Badge>
+          </p>
+
+          {/* Product Name */}
+          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
+            {name}
+          </h3>
+
+          {/* Short Description */}
+          <p className="text-xs text-gray-600 line-clamp-1">
+            {shortDescription}
+          </p>
+
+          {/* Price Section */}
+          <div className="flex items-baseline gap-2 pt-1">
+            <span className="text-lg font-bold text-gray-900">
+              {formatKz(price)}
+            </span>
+            {promoPrice && (
+              <span className="text-xs text-gray-400 line-through">
+                {formatKz(promoPrice)}
+              </span>
+            )}
+          </div>
+
+          {/* Stock Status */}
+          <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+            <span className={`text-xs font-medium ${isActive ? "text-green-600" : "text-red-600"}`}>
+              {isActive ? "Em estoque" : "Indisponível"}
+            </span>
+            <span className="text-xs text-gray-500">Entrega rápida</span>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex gap-2 pt-2">
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex-1 text-sm font-medium text-gray-700 hover:text-gray-900 py-2 border border-gray-200 rounded hover:bg-gray-50 transition-colors"
+            >
+              Detalhes
+            </button>
+            <button
+              onClick={handleAddToCart}
+              disabled={!isActive}
+              className="flex-1 bg-green-800 hover:bg-green-950 text-white text-sm font-medium py-2 rounded flex items-center justify-center gap-2 disabled:opacity-50 transition-colors"
+            >
+              <ShoppingCart className="w-4 h-4" />
+              <span className="hidden sm:inline">Comprar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Product Details Modal */}
+      <ProductDetailsModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        productId={id}
+      />
+    </>
   )
 }

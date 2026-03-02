@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import Link from "next/link"
 
 // FAQ data with structured data for SEO
 const faqData = [
@@ -87,12 +88,12 @@ export default function FaqSection() {
           <p className="text-gray-600 mb-4">
             Não encontrou a resposta que procura? Entre em contacto connosco.
           </p>
-          <a
+          <Link
             href="#contact-form"
             className="inline-flex items-center justify-center px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
           >
             Fazer uma pergunta
-          </a>
+          </Link>
         </div>
       </div>
 

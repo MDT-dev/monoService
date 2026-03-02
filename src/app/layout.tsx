@@ -55,18 +55,21 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
         <LanguageProvider>
           <CartProvider>
+            <Providers>
             <div className="">
               <Suspense fallback={<div>Loading...</div>}>
                 <Navbar />
               </Suspense>
-              <main className=""> <Providers>{children} </Providers></main>
+              <main className=""> {children} </main>
               <Toaster />
               <Suspense fallback={<div>Loading...</div>}>
                 <Footer />
               </Suspense>
             </div>
+          </Providers>
           </CartProvider>
         </LanguageProvider>
       </body>

@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart-context"
 import { Trash2, Plus, Minus, MessageCircle } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
+import { formatKz } from "@/util/formatCurrency"
 
 export default function CartPage() {
   const { t } = useLanguage()
@@ -23,16 +24,16 @@ export default function CartPage() {
 
   const generateWhatsAppMessage = () => {
     const itemsList = items
-      .map((item) => `• ${item.name} (${item.quantity}x) - AOA${(item.price * item.quantity).toFixed(2)}`)
+      .map((item) => `• ${item.name} (${item.quantity}x) - ${formatKz(item.price * item.quantity)}`)
       .join("\n")
 
     return `Olá! Gostaria de fazer uma encomenda:
 
 ${itemsList}
 
-*Subtotal:* AOA${subtotal.toFixed(2)}
+*Subtotal:* ${formatKz(subtotal)}
 *Envio:* Grátis
-*Total:* AOA${finalTotal.toFixed(2)}
+*Total:* ${formatKz(finalTotal)}
 
 *Dados do Cliente:*
 Nome: ${customerName}
@@ -92,7 +93,7 @@ Obrigado!`
                     type="tel"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    placeholder="+351 912 345 678"
+                    placeholder="+244 912 345 678"
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -106,12 +107,12 @@ Obrigado!`
                     <span className="text-muted-foreground">
                       {item.name} × {item.quantity}
                     </span>
-                    <span className="font-medium">AOA{(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="font-medium">{formatKz(item.price * item.quantity)}</span>
                   </div>
                 ))}
                 <div className="border-t border-border pt-3 flex justify-between font-bold">
                   <span>Total:</span>
-                  <span className="text-primary text-lg">AOA{finalTotal.toFixed(2)}</span>
+                  <span className="text-primary text-lg">{formatKz(finalTotal)}</span>
                 </div>
               </div>
 
@@ -172,7 +173,7 @@ Obrigado!`
                         <div className="flex-1">
                           <h3 className="font-bold text-foreground text-lg">{item.name}</h3>
                           <p className="text-muted-foreground text-sm">{item.category}</p>
-                          <p className="font-bold text-primary text-lg mt-2">AOA{item.price.toFixed(2)}</p>
+                          <p className="font-bold text-primary text-lg mt-2">{formatKz(item.price)}</p>
                         </div>
                         <div className="flex flex-col items-end gap-3">
                           <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
@@ -214,19 +215,19 @@ Obrigado!`
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span className="font-medium">AOA{subtotal.toFixed(2)}</span>
+                      <span className="font-medium">{formatKz(subtotal)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Envio</span>
                       <span className="font-medium text-green-600">Grátis</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="font-medium">AOA{tax.toFixed(2)}</span>
+                      <span className="font-medium">{formatKz(tax)}</span>
                     </div>
                     <div className="border-t border-border pt-3 flex justify-between">
                       <span className="font-bold text-foreground">Total</span>
                       <span className="text-2xl font-bold text-primary">
-                        AOA{finalTotal.toFixed(2)}
+                        {formatKz(finalTotal)}
                       </span>
                     </div>
                   </div>

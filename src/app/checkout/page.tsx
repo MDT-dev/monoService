@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Check, AlertCircle } from "lucide-react"
+import { formatKz } from "@/util/formatCurrency"
 
 // Gerar referência única do pedido
 const gerarReferenciaPedido = (): string => {
@@ -75,7 +76,6 @@ export default function CheckoutPage() {
     if (!formData.phone.trim()) novosErros.phone = "O número de telefone é obrigatório"
     if (!formData.address.trim()) novosErros.address = "O endereço é obrigatório"
     if (!formData.city.trim()) novosErros.city = "A cidade é obrigatória"
-    if (!formData.postalCode.trim()) novosErros.postalCode = "O código postal é obrigatório"
     if (!formData.country.trim()) novosErros.country = "O país é obrigatório"
     if (!formData.paymentMethod) novosErros.paymentMethod = "Selecione um método de pagamento"
 
@@ -126,15 +126,15 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal:</span>
-                    <span>AOA {subtotal.toFixed(2)}</span>
+                    <span> {formatKz(subtotal)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">IVA (23%):</span>
-                    <span>AOA {tax.toFixed(2)}</span>
+                    <span>{formatKz(tax)}</span>
                   </div>
                   <div className="flex justify-between border-t pt-2 font-bold">
                     <span>Total:</span>
-                    <span className="text-accent">AOA {total.toFixed(2)}</span>
+                    <span className="text-accent"> {formatKz(total)}</span>
                   </div>
                 </div>
               </div>
@@ -219,8 +219,6 @@ export default function CheckoutPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
                       <Input placeholder="Cidade" value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })} />
-                      <Input placeholder="Código Postal" value={formData.postalCode}
-                        onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })} />
                       <Input placeholder="País" value={formData.country}
                         onChange={(e) => setFormData({ ...formData, country: e.target.value })} />
                     </div>
@@ -237,8 +235,8 @@ export default function CheckoutPage() {
                         <SelectValue placeholder="Selecione o método de pagamento" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="credit">Cartão de Crédito</SelectItem>
-                        <SelectItem value="paypal">PayPal</SelectItem>
+                        <SelectItem value="credit">Cartão</SelectItem>
+                        <SelectItem value="paypal">Pagamento por referência</SelectItem>
                         <SelectItem value="bank">Transferência Bancária</SelectItem>
                       </SelectContent>
                     </Select>
@@ -270,7 +268,7 @@ export default function CheckoutPage() {
               <CardContent>
                 <div className="flex justify-between mb-2">
                   <span>Subtotal</span>
-                  <span>AOA {subtotal.toFixed(2)}</span>
+                  <span> {formatKz(subtotal)}</span>
                 </div>
                 <div className="flex justify-between mb-2">
                   <span>Envio</span>
@@ -278,7 +276,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between font-bold border-t pt-2">
                   <span>Total</span>
-                  <span className="text-accent">AOA {total.toFixed(2)}</span>
+                  <span className="text-accent">{formatKz(total)}</span>
                 </div>
               </CardContent>
             </Card>

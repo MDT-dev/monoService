@@ -10,6 +10,7 @@ import { IoLogoTiktok, IoLogoWhatsapp } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Logo from "../../../public/assets/logo3.png";
+import Link from "next/link";
 
 const footerLinks = {
   services: [
@@ -79,7 +80,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-8">
-              <Image src={Logo} alt="Mundo Saudável" className="w-36"></Image>
+              <Image src={Logo} alt="Logo Milones. " className="w-36"></Image>
               <div>
                 <div className="text-xs text-green-400 font-medium">
                   CULTIVANDO O FUTURO
@@ -94,18 +95,18 @@ export default function Footer() {
             <div className="space-y-4 mb-8">
               <div className="flex items-center text-gray-300 hover:text-green-400 transition-colors">
                 <Phone className="h-5 w-5 mr-4 text-green-400 flex-shrink-0" />
-                <a href="tel:+244923456677" className="hover:underline">
-                 +244 942 093 530
-                </a>
+                <Link href="+244935410850" className="hover:underline">
+                  +244 935 410 850
+                </Link>
               </div>
               <div className="flex items-center text-gray-300 hover:text-green-400 transition-colors">
                 <Mail className="h-5 w-5 mr-4 text-green-400 flex-shrink-0" />
-                <a
+                <Link
                   href="mailto:info@agritech-solutions.com"
                   className="hover:underline"
                 >
                   info@milones.ao
-                </a>
+                </Link>
               </div>
               <div className="flex items-start text-gray-300">
                 <MapPin className="h-5 w-5 mr-4 text-green-400 flex-shrink-0 mt-1" />
@@ -147,13 +148,13 @@ export default function Footer() {
               <ul className="space-y-4">
                 {section.links.map((link, index) => (
                   <li key={index}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-gray-300 hover:text-green-400 transition-colors duration-200 flex items-center group"
                     >
                       <ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -189,7 +190,7 @@ export default function Footer() {
               {socialLinks.map((social, index) => {
                 const IconComponent = social.icon;
                 return (
-                  <a
+                  <Link
                     target="_blank"
                     key={index}
                     href={social.href}
@@ -197,12 +198,12 @@ export default function Footer() {
                     className={`text-gray-400 ${social.color} transition-colors duration-200 transform hover:scale-110`}
                   >
                     <IconComponent className="h-6 w-6" />
-                  </a>
+                  </Link>
                 );
               })}
             </div>
 
-            <div className="text-center md:text-right">
+            {/* <div className="text-center md:text-right">
               <p className="text-gray-300 text-sm mb-1">
                 &copy; {new Date().getFullYear()} Mundo Saudável. Todos os
                 direitos reservados.
@@ -214,7 +215,7 @@ export default function Footer() {
                 Inovação que cultiva • Sustentabilidade que cresce • Sucesso que
                 colhe
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
