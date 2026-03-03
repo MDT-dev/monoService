@@ -3,24 +3,24 @@ import { useMemo } from "react"
 import { ProductCard } from "@/components/product-card"
 
 import { useSearchParams } from "next/navigation"
-import { useProductsSearch } from "@/hooks/useSearchProduct"
+import { useProductsFilter } from "@/hooks/useFilterProduct"
 import { Button } from "@/components/ui/button"
 
 
-export default function ProductsSearchPage() {
+export function ProductsFilter() {
 
     const searchParams = useSearchParams()
+    const categoria = searchParams.get("categoria") ?? ""
+    const subcategoria = searchParams.get("subcategoria") ?? ""
 
-    const nameProduto = searchParams.get("nameProduto") ?? ""
-
-    const { data } =useProductsSearch({nameProduto})
+    const { data } = useProductsFilter({ categoria, subcategoria })
 
     const allProducts = useMemo(() => data?.products ?? [], [data])
 
-     const clearFilters = () => {
-       
-    }
+    const clearFilters = () => {
 
+    }
+    
     return (
         <div className="min-h-screen bg-gradient-to-b from-muted/30 to-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -31,6 +31,7 @@ export default function ProductsSearchPage() {
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-8">
+
                     <div className="flex-1">
                         {allProducts.length > 0 ? (
                             <>

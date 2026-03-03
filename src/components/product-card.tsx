@@ -5,10 +5,10 @@ import { useState } from "react"
 import Image from "next/image"
 import { Heart, Share2, ShoppingCart } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
-import { Product } from "@/types/product"
 import { formatKz } from "@/util/formatCurrency"
 import { ProductDetailsModal } from "./product-details-modal"
 import { Badge } from "./ui/badge"
+import { Product } from "@/types/graphql"
 
 export const ProductCard: React.FC<Product> = ({
   id,

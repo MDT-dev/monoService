@@ -29,8 +29,19 @@ export const PRODUCT_DETAIL_QUERY = `
 `;
 
 export const ALL_PRODUCTS_QUERY = gql`
-  query Products {
-    products {
+ 
+  query Products(
+    $orderBy: ProductOrderByInput
+    $skip: Int
+    $first: Int
+    $where: ProductWhereInput
+  ) {
+    products(
+      orderBy: $orderBy
+      skip: $skip
+      first: $first
+      where: $where
+    ) {
       id
       name
       slug
@@ -44,7 +55,6 @@ export const ALL_PRODUCTS_QUERY = gql`
       }
       isActive
       sku
-
       thumbnail {
         url
         fileName
@@ -59,6 +69,17 @@ export const ALL_PRODUCTS_QUERY = gql`
           id
           name
         }
+      }
+    }
+    productsConnection(where: $where) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        endCursor
+        startCursor
+      }
+      aggregate {
+        count
       }
     }
   }

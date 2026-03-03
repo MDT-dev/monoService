@@ -42,7 +42,7 @@ export function Navbar() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "")
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("nameProduto") || "")
 
 
   const handleSearch = (e: React.FormEvent) => {
@@ -50,10 +50,11 @@ export function Navbar() {
     if (searchQuery.trim()) {
       const params = new URLSearchParams()
       params.set("nameProduto", searchQuery)
-      router.push(`/pesquisar?${params.toString()}`)
+      router.push(`/produtos?search=${params.toString()}&orderBy=createdAt_ASC&page=1&pageSize=9`)
     }
   }
-  
+
+
 
   return (
     <nav className="bg-background border-b border-border sticky top-0 z-50 shadow-sm">
@@ -62,10 +63,10 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>Envio grátis em encomendas acima de {formatKz(50000)}</div>
           <div className="flex gap-6 text-xs">
-            <Link href="/help" className="hover:text-gray-300 transition">
+            <Link href="/#help" className="hover:text-gray-300 transition">
               Ajuda
             </Link>
-            <Link href="/track" className="hover:text-gray-300 transition">
+            <Link href="/#agt" className="hover:text-gray-300 transition">
               Nif: 5002859068
             </Link>
           </div>
