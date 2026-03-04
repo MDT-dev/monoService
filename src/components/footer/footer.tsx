@@ -5,6 +5,7 @@ import {
   Phone,
   MapPin,
   ArrowRight,
+  ShoppingCart,
 } from "lucide-react";
 import { IoLogoTiktok, IoLogoWhatsapp } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
@@ -14,23 +15,19 @@ import Link from "next/link";
 
 const footerLinks = {
   services: [
-    { name: "Agricultura Inteligente", href: "/servicos/agricultura" },
-    { name: "Apicultura Profissional", href: "/servicos/apicultura" },
-    { name: "Sistemas Avícolas Modernos", href: "avicultura" },
-    { name: "Excelência Pecuária", href: "/servicos/pecuaria" },
-    { name: "Aquicultura Sustentável", href: "/servicos/aquicultura" },
+    { name: "Tornar-se afialiado", href: "mailto:info@milones.ao" },
+    { name: "Vender com a milones", href: "mailto:info@milones.ao" },
+    { name: "Clientes", href: "mailto:info@milones.ao" },
+  
   ],
   company: [
     { name: "Sobre Nós", href: "/sobre-nos" },
-    { name: "Carreiras", href: "#" },
-    { name: "Notícias & Atualizações", href: "/noticias" },
-    { name: "Parceiro", href: "mailto:info@mundosaudavel.ao" },
-    { name: "Investidor", href: "mailto:info@mundosaudavel.ao" },
+    { name: "Parceiro", href: "mailto:info@milones.ao" },
+    { name: "Investidor", href: "mailto:info@milones.ao" },
   ],
   support: [
     { name: "Fale Connosco", href: "/contacto" },
     { name: "Suporte Técnico", href: "/contacto" },
-    { name: "Programas de Formação", href: "mailto:info@mundosaudavel.ao" },
     { name: "Perguntas Frequentes", href: "/contacto" },
   ],
   legal: [
@@ -66,12 +63,7 @@ const socialLinks = [
   },
 ];
 
-const certifications = [
-  "ISO 9001:2015",
-  "Certificação USDA",
-  "Aprovado pela EPA",
-  "Classificação A+ BBB",
-];
+
 
 export default function Footer() {
   return (
@@ -89,7 +81,7 @@ export default function Footer() {
             </div>
 
             <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-              Impulsionamos a construção civil com materiais elétricos inovadores, seguros e eficientes para obras modernas e sustentáveis.
+             Milones impulsiona o comércio digital com produtos de qualidade, entrega rápida e uma experiência de compra simples, segura e eficiente para o dia a dia moderno.
             </p>
 
             <div className="space-y-4 mb-8">
@@ -102,10 +94,19 @@ export default function Footer() {
               <div className="flex items-center text-gray-300 hover:text-green-400 transition-colors">
                 <Mail className="h-5 w-5 mr-4 text-green-400 flex-shrink-0" />
                 <Link
-                  href="mailto:info@agritech-solutions.com"
+                  href="mailto:info@milones.ao"
                   className="hover:underline"
                 >
                   info@milones.ao
+                </Link>
+              </div>
+              <div className="flex items-center text-gray-300 hover:text-green-400 transition-colors">
+                <ShoppingCart className="h-5 w-5 mr-4 text-green-400 flex-shrink-0" />
+                <Link
+                  href="mailto:comercial@milones.ao"
+                  className="hover:underline"
+                >
+                  comercial@milones.ao
                 </Link>
               </div>
               <div className="flex items-start text-gray-300">
@@ -113,26 +114,11 @@ export default function Footer() {
                 <span>
                   Milones Serviço, Lda
                   <br />
-                  Luanda, Angola CF 12345
+                  Luanda, Angola NIF 5002859068
                 </span>
               </div>
             </div>
-
-            <div>
-              <h4 className="text-sm font-semibold text-green-400 mb-3">
-                CERTIFICAÇÕES
-              </h4>
-              <div className="grid grid-cols-2 gap-2">
-                {certifications.map((cert, index) => (
-                  <div
-                    key={index}
-                    className="text-xs text-gray-400 bg-gray-800 px-3 py-2 rounded-lg"
-                  >
-                    {cert}
-                  </div>
-                ))}
-              </div>
-            </div>
+           
           </div>
 
           {[

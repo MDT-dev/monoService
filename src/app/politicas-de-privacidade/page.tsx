@@ -154,7 +154,7 @@ export default function PrivacidadePage() {
                       </h3>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      A Mundo Saudável está comprometida em proteger a sua privacidade e
+                      A Milones está comprometida em proteger a sua privacidade e
                       garantir a segurança dos seus dados pessoais em
                       conformidade com a legislação aplicável.
                     </p>
@@ -187,7 +187,7 @@ export default function PrivacidadePage() {
                     />
                     <div className="space-y-4 text-muted-foreground">
                       <p>
-                        A Mundo Saudável valoriza a privacidade dos seus clientes e
+                        A Milones valoriza a privacidade dos seus clientes e
                         utilizadores. Esta Política de Privacidade explica como
                         recolhemos, utilizamos, divulgamos e protegemos as suas
                         informações pessoais quando utiliza o nosso website ou
@@ -430,14 +430,10 @@ export default function PrivacidadePage() {
                       </p>
                       <div className="bg-secondary p-4 rounded-lg">
                         <p>
-                          <strong>Email</strong>: info@mundosaudavel.ao
+                          <strong>Email</strong>: info@milones.ao
                         </p>
                         <p>
-                          <strong>Telefone</strong>: + 244 930 678 230
-                        </p>
-                        <p>
-                          <strong>Endereço</strong>: Trav. Rei Katyavala nº3,
-                          Luanda-Angola
+                          <strong>Telefone</strong>: +244 935 410 850
                         </p>
                       </div>
                     </div>

@@ -1,11 +1,10 @@
-import { Phone, Mail, MapPin, Clock} from "lucide-react";
+import { Phone, Mail, Clock} from "lucide-react";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ContactForm from "../contact-form";
 
 const contactInfo = [
   {
@@ -21,34 +20,16 @@ const contactInfo = [
     icon: Mail,
     title: "Endereços de Email",
     details: [
-      { label: "Informações Gerais", value: "info@agritech-solutions.com" },
-      { label: "Vendas", value: "sales@agritech-solutions.com" },
-      { label: "Suporte", value: "support@agritech-solutions.com" },
-    ],
-  },
-  {
-    icon: MapPin,
-    title: "Localizações",
-    details: [
-      {
-        label: "Sede",
-        value: "123 Avenida Agricultura, Cidade Fazenda, FC 12345",
-      },
-      {
-        label: "Escritório Regional",
-        value: "456 Estrada Rural, Vila Interior, CT 67890",
-      },
-      {
-        label: "Centro de Pesquisa",
-        value: "789 Rua Inovação, Vale da Tecnologia, TV 54321",
-      },
+      { label: "Informações Gerais", value: "info@milones.ao" },
+      { label: "Vendas", value: "comercial@milones.ao" },
+      { label: "Suporte", value: "info@milones.ao" },
     ],
   },
   {
     icon: Clock,
     title: "Horário de Atendimento",
     details: [
-      { label: "Segunda a Sexta", value: "8:00 - 18:00" },
+      { label: "Segunda a Sexta", value: "8:00 - 17:00" },
       { label: "Sábado", value: "9:00 - 16:00" },
       { label: "Domingo", value: "Somente emergências" },
     ],
@@ -59,7 +40,6 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Informações de Contato */}
           <div className="lg:col-span-1 space-y-6">
             {contactInfo.map((info, index) => {
@@ -93,9 +73,7 @@ export default function ContactSection() {
             })}
           </div>
 
-          {/* Formulário de Contato */}
-        <ContactForm/>
-        </div>
+       
 
         {/* Mapa Interativo */}
         <div className="bg-gray-100 rounded-2xl p-8">

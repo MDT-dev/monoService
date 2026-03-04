@@ -98,7 +98,7 @@ export default function PartnersSection() {
           className="text-center mt-16"
         >
           <Link
-            href="mailto:info@mundosaudavel.ao"
+            href="mailto:info@milones.ao"
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#1F8A70] to-green-600 text-white px-8 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all hover:scale-105"
           >
             <span>Torne-se Nosso Parceiro</span>

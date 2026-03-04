@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { ShoppingCart, Menu, X, ChevronDown, Search, User, Sun } from "lucide-react"
+import { ShoppingCart, Menu, X, ChevronDown, Search, User, Sun, Moon } from "lucide-react"
 import { useState } from "react"
 import { useCart } from "@/lib/cart-context"
 import { useCategories } from "@/hooks/useCategories"
@@ -21,14 +21,21 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Category } from "@/types/category"
 import { formatKz } from "@/util/formatCurrency"
+import { useTheme } from "next-themes";
 
 const staticNavigation = [
   { name: "Home", href: "/" },
   { name: "Sobre nós", href: "/sobre-nos" },
-  { name: "Notícias", href: "/noticias" },
+  { name: "Todos produtos", href: "/produtos" },
   { name: "Contacto", href: "/contacto" },
 ]
 
@@ -38,10 +45,10 @@ export function Navbar() {
   const searchParams = useSearchParams()
   const { itemCount } = useCart()
   const { data } = useCategories()
+   const { theme, setTheme } = useTheme();
   const categoriesList: Category[] = data?.categories ?? []
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState(searchParams.get("nameProduto") || "")
 
 
@@ -61,12 +68,12 @@ export function Navbar() {
       {/* Top Bar */}
       <div className="bg-gray-900 text-white py-2 px-4 text-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div>Envio grátis em encomendas acima de {formatKz(50000)}</div>
+          <div className="text-[10px] md:text-base">Envio grátis em encomendas acima de {formatKz(50000)}</div>
           <div className="flex gap-6 text-xs">
-            <Link href="/#help" className="hover:text-gray-300 transition">
+            <Link href="mailto:info@milones.ao" className="hover:text-gray-300 transition text-[10px] md:text-base">
               Ajuda
             </Link>
-            <Link href="/#agt" className="hover:text-gray-300 transition">
+            <Link href="/#agt" className="hover:text-gray-300 transition text-[10px] md:text-base">
               Nif: 5002859068
             </Link>
           </div>
@@ -103,33 +110,7 @@ export function Navbar() {
               </Link>
             ))}
 
-            {/* Categories from hook */}
-            {categoriesList.length > 0 && (
-              <div className="relative group ml-2">
-                <button
-                  className={cn(
-                    "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-1.5",
-                    "text-muted-foreground hover:text-foreground hover:bg-muted",
-                  )}
-                >
-                  Produtos
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-
-                {/* Dropdown Menu */}
-                <div className="absolute left-0 mt-0 w-56 bg-background border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 py-2 z-10">
-                  {categoriesList.map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/categoria/${category.slug}`}
-                      className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors border-b border-border last:border-b-0"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+       
           </div>
 
           {/* Search Bar - Desktop */}
@@ -185,7 +166,7 @@ export function Navbar() {
 
             {/* Account Link */}
             <Link
-              href="/conta"
+              href="/contacto"
               className="hidden sm:p-2.5 hidden sm:flex text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
               aria-label="Minha conta"
             >
@@ -207,8 +188,12 @@ export function Navbar() {
             </Link>
 
             {/* Theme Toggle */}
-            <button className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors" aria-label="Toggle theme">
-              <Sun className="w-5 h-5" />
+            <button
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
 
             {/* Mobile Menu */}
@@ -236,40 +221,60 @@ export function Navbar() {
                     </Link>
                   ))}
 
-                  {/* Mobile Categories */}
+                  {/* Mobile Categories with Dropdown */}
                   {categoriesList.length > 0 && (
-                    <div>
-                      <button
-                        onClick={() =>
-                          setActiveCategory(
-                            activeCategory === "products" ? null : "products"
-                          )
-                        }
-                        className="w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg flex items-center justify-between transition-colors"
+                    <div className="space-y-1">
+                      <Link
+                        href="/produtos"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
                       >
-                        Produtos
-                        <ChevronDown
-                          className={cn(
-                            "w-4 h-4 transition-transform",
-                            activeCategory === "products" && "rotate-180"
-                          )}
-                        />
-                      </button>
+                        Todos os produtos
+                      </Link>
 
-                      {activeCategory === "products" && (
-                        <div className="mt-1 space-y-1 pl-2">
-                          {categoriesList.map((category) => (
-                            <Link
-                              key={category.id}
-                              href={`/categoria/${category.slug}`}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
-                            >
+                      {categoriesList.map((category) => (
+                        <DropdownMenu key={category.id}>
+                          <DropdownMenuTrigger asChild>
+                            <button className="w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg flex items-center justify-between transition-colors">
                               {category.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
+                              <ChevronDown className="w-4 h-4" />
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="w-56">
+                            {category.subCategories && category.subCategories.length > 0 ? (
+                              category.subCategories.map((subCategory) => (
+                                <DropdownMenuItem key={subCategory.id} asChild>
+                                  <Link
+                                    href={`/filtrar?categoria=${category.slug}&subcategoria=${subCategory.slug}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="flex items-center gap-2 cursor-pointer"
+                                  >
+                                    {subCategory.image?.url && (
+                                      <Image
+                                        src={subCategory.image.url}
+                                        alt={subCategory.name}
+                                        width={32}
+                                        height={32}
+                                        className="w-8 h-8 object-cover rounded"
+                                      />
+                                    )}
+                                    <span>{subCategory.name}</span>
+                                  </Link>
+                                </DropdownMenuItem>
+                              ))
+                            ) : (
+                              <DropdownMenuItem asChild>
+                                <Link
+                                  href={`/categoria/${category.slug}`}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  Ver todos
+                                </Link>
+                              </DropdownMenuItem>
+                            )}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -320,11 +325,11 @@ export function Navbar() {
                                 <h4 className="font-medium text-sm text-gray-500 group-hover:text-green-700 transition">
                                   {subCategory.name}
                                 </h4>
-                                {subCategory.description && (
+                                {/* {subCategory.description && (
                                   <p className="text-xs text-gray-400 mt-1">
                                     {subCategory.description}
                                   </p>
-                                )}
+                                )} */}
                               </Link>
                             ))}
                           </div>
@@ -336,13 +341,13 @@ export function Navbar() {
               ) : (
                 <>
                   <NavigationMenuItem>
-                    <NavigationMenuLink href="/products" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition">
-                      Products
+                    <NavigationMenuLink href="/produtos" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition">
+                      Produtos
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuLink className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition">
-                      Sale
+                    <NavigationMenuLink href="mailto:info@milones.ao" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition">
+                      vendas
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 </>

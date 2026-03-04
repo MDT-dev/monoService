@@ -12,7 +12,7 @@ export default function HeroSection({
   title: string;
 }) {
   return (
-    <section className="pt-24 md:pt-32 pb-16 md:pb-24 relative overflow-hidden top-margin ">
+    <section className="pt-24 md:pt-32 pb-16 md:pb-24 relative overflow-hidden ">
       <div className="absolute inset-0 bg-gradient-to-br from-[#1F8A70] to-green-600 z-0">
         <div className="absolute inset-0 opacity-20">
           <Image

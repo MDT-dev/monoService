@@ -10,34 +10,34 @@ const faqData = [
   {
     question: "Quais são os métodos de pagamento aceites?",
     answer:
-      "Aceitamos pagamentos por transferência bancária, depósito e pagamento em numerário. Para projetos maiores, oferecemos planos de pagamento flexíveis adaptados às necessidades do cliente.",
+      "Aceitamos pagamentos por cartão de crédito, transferência bancária, MB Way e pagamento em numerário na entrega (dependendo da localidade). Para compras maiores, oferecemos planos de pagamento flexíveis.",
   },
   {
-    question: "Quanto tempo demora a implementação de um software?",
+    question: "Quanto tempo demora a entrega dos produtos?",
     answer:
-      "O tempo de implementação varia de acordo com a complexidade do projeto. Geralmente, projetos simples podem levar de 1 a 2 semanas, enquanto projetos mais complexos podem levar de 1 a 3 meses. Fornecemos sempre um cronograma detalhado antes de iniciar qualquer projeto.",
+      "O tempo de entrega varia conforme a sua localização e o stock do produto. Normalmente, entregas em Luanda levam 1 a 3 dias úteis, enquanto para outras províncias podem levar até 7 dias. Fornecemos sempre um número de rastreio para acompanhar a sua encomenda.",
   },
   {
-    question: "Oferecem suporte técnico após a implementação?",
+    question: "Posso devolver ou trocar um produto?",
     answer:
-      "Sim, oferecemos suporte técnico contínuo para todos os nossos produtos e serviços. Temos diferentes planos de suporte para atender às necessidades específicas de cada cliente, incluindo suporte remoto, presencial e pacotes de manutenção preventiva.",
+      "Sim, aceitamos devoluções ou trocas em até 14 dias após a entrega, desde que o produto esteja em perfeitas condições e na embalagem original. Consulte a nossa política de devolução para mais detalhes.",
   },
   {
-    question: "Fazem formação para os utilizadores?",
+    question: "Oferecem suporte em caso de problemas com o pedido?",
     answer:
-      "Sim, oferecemos formação completa para os utilizadores dos nossos sistemas. A formação pode ser realizada nas nossas instalações ou nas instalações do cliente. Também disponibilizamos materiais de formação e vídeos tutoriais para referência futura.",
+      "Sim, a nossa equipa de apoio ao cliente está disponível para resolver qualquer problema relacionado com pedidos, entregas ou produtos defeituosos. Pode contactar-nos por email, telefone ou chat online.",
   },
   {
-    question: "Trabalham com empresas de todos os tamanhos?",
+    question: "Fazem envio para todo o país?",
     answer:
-      "Sim, trabalhamos com empresas de todos os tamanhos, desde startups até grandes corporações. Adaptamos as nossas soluções às necessidades específicas de cada cliente, independentemente do tamanho da empresa.",
+      "Sim, realizamos entregas para todas as províncias de Angola. Os custos e prazos variam conforme a localização, e informamos sempre antes da finalização da compra.",
   },
   {
-    question: "Oferecem serviços de consultoria em TI?",
+    question: "Oferecem promoções ou descontos especiais?",
     answer:
-      "Sim, oferecemos serviços de consultoria em TI para ajudar as empresas a identificar as melhores soluções tecnológicas para os seus negócios. A nossa equipa de consultores experientes pode ajudar a desenvolver estratégias de TI alinhadas com os objetivos de negócio.",
+      "Sim, regularmente temos promoções e descontos exclusivos para clientes registados ou para compras acima de determinado valor. Subscreva a nossa newsletter para receber as últimas ofertas.",
   },
-]
+];
 
 export default function FaqSection() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
@@ -89,7 +89,7 @@ export default function FaqSection() {
             Não encontrou a resposta que procura? Entre em contacto connosco.
           </p>
           <Link
-            href="#contact-form"
+            href="mailto:info@milones.ao"
             className="inline-flex items-center justify-center px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
           >
             Fazer uma pergunta

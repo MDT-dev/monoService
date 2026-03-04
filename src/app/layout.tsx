@@ -10,6 +10,7 @@ import { Suspense } from "react"
 import "./globals.css"
 import { Providers } from "@/contexts/providers";
 import { Toaster } from "@/components/ui/sonner"
+import { ThemeProvider } from "next-themes"
 
 export const metadata: Metadata = {
   title: "Milones Lda - Soluções Profissionais",
@@ -35,15 +36,6 @@ const geistMono = Geist_Mono({
 
 
 
-const themeScript = `
-  try {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    }
-  } catch (e) {}
-`
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -51,26 +43,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
         <LanguageProvider>
-          <CartProvider>
-            <Providers>
-            <div className="">
-              <Suspense fallback={<div>Loading...</div>}>
-                <Navbar />
-              </Suspense>
-              <main className=""> {children} </main>
-              <Toaster />
-              <Suspense fallback={<div>Loading...</div>}>
-                <Footer />
-              </Suspense>
-            </div>
-          </Providers>
-          </CartProvider>
+          <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
+            <CartProvider>
+              <Providers>
+                <div className="">
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Navbar />
+                  </Suspense>
+                  <main className=""> {children} </main>
+                  <Toaster />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Footer />
+                  </Suspense>
+                </div>
+              </Providers>
+            </CartProvider>
+          </ThemeProvider>
         </LanguageProvider>
       </body>
     </html>

@@ -6,17 +6,17 @@ import ContactSection from "@/components/contacto/contactSolution/Contact-New";
 
 // SEO metadata
 export const metadata: Metadata = {
-  title: "Contacte-nos | Mundo Saudável",
+  title: "Contacte-nos | Milones",
   description:
-    "Entre em contacto com a Mundo Saudável para serviços e produtos de agricultura, pecuária, apicultura, avicultura e piscicultura. Estamos disponíveis para responder a todas as suas questões.",
+    "Entre em contacto com a Milones para serviços e produtos de agricultura, pecuária, apicultura, avicultura e piscicultura. Estamos disponíveis para responder a todas as suas questões.",
   keywords:
-    "contacto, agricultura Angola, pecuária Angola, apicultura, avicultura, piscicultura, fornecedores agrícolas, Angola, Luanda, Mundo Saudável",
+    "contacto, agricultura Angola, pecuária Angola, apicultura, avicultura, piscicultura, fornecedores agrícolas, Angola, Luanda, Milones",
   openGraph: {
-    title: "Contacte-nos | Mundo Saudável",
+    title: "Contacte-nos | Milones",
     description:
-      "Fale com a Mundo Saudável e descubra como podemos fornecer produtos agrícolas frescos e serviços de pecuária, apicultura, avicultura e piscicultura.",
-    url: "https://mundosaudavel.ao/contacto",
-    siteName: "Mundo Saudável",
+      "Fale com a Milones e descubra como podemos fornecer produtos agrícolas frescos e serviços de pecuária, apicultura, avicultura e piscicultura.",
+    url: "https://www.milones.ao/contacto",
+    siteName: "Milones",
     locale: "pt_AO",
     type: "website",
   },

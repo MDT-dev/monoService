@@ -19,6 +19,7 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination';
 import { ProductCard } from '../product-card';
+import { ProductSkeleton } from '../product-skeleton';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -199,10 +200,9 @@ export function ProdutosGrid() {
                     {/* Products Grid */}
                     <div className="flex-1">
                         {isLoading ? (
-                            <div className="flex items-center justify-center py-16">
-                                <p className="text-lg text-muted-foreground">Carregando produtos...</p>
-                            </div>
+                            <ProductSkeleton/>
                         ) : error ? (
+                           
                             <div className="flex flex-col items-center justify-center py-16">
                                 <p className="text-lg text-muted-foreground mb-4">Erro ao carregar produtos</p>
                                 <Button onClick={clearFilters} className="bg-accent hover:bg-accent/90">

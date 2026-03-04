@@ -17,7 +17,7 @@ export default function CTASectionAlternative() {
     const body = `Nome: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMensagem: ${message || "Estou interessado nas suas soluções."}`
 
     // Criar o link mailto e redirecionar
-    const mailtoLink = `mailto:info@mundosaudavel.ao?subject=${encodeURIComponent(subject)}&body=${body}`
+    const mailtoLink = `mailto:info@milones.ao?subject=${encodeURIComponent(subject)}&body=${body}`
     window.location.href = mailtoLink
   }
 
@@ -48,7 +48,7 @@ export default function CTASectionAlternative() {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 <Link
-                  href="/contacto"
+                  href="mailto:info@milones.ao"
                   className="inline-flex items-center justify-center px-6 py-3 bg-white text-green-600 font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   Solicitar Orçamento
@@ -57,10 +57,10 @@ export default function CTASectionAlternative() {
 
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 <Link
-                  href="/servicos"
+                  href="/produtos"
                   className="inline-flex items-center justify-center px-6 py-3 bg-green-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-white/20"
                 >
-                  Ver Serviços
+                  Ver todos os produtos
                 </Link>
               </motion.div>
             </div>
@@ -97,10 +97,10 @@ export default function CTASectionAlternative() {
                   <div>
                     <p className="font-medium text-gray-900">Email</p>
                     <Link
-                      href="mailto:info@mundosaudavel.ao"
+                      href="mailto:info@milones.ao"
                       className="text-green-600 hover:underline break-all"
                     >
-                      info@mundosaudavel.ao
+                      info@milones.ao
                     </Link>
                   </div>
                 </div>

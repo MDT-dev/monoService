@@ -51,7 +51,7 @@ Obrigado!`
     const message = generateWhatsAppMessage()
     const encodedMessage = encodeURIComponent(message)
     // Portuguese phone number format - change to your business WhatsApp number
-    const whatsappNumber = "244942093530" // Replace with your WhatsApp number
+    const whatsappNumber = "244935410850" // Replace with your WhatsApp number
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank")
 
     clearCart()

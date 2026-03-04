@@ -6,7 +6,6 @@ import { PromoCarousel } from "@/components/promo-carousel";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroCarousel from "@/components/carousel/CaroulseHero";
-import NewsPreviewSection from "@/components/news/news-preview-section";
 import CTASectionAlternative from "@/components/cta-section";
 import { useAllProducts } from "@/hooks/useProducts";
 import { ErrorState } from "@/components/error-state";
@@ -22,7 +21,6 @@ export function Home() {
       <div className="min-h-screen">
         <HeroCarousel />
         <SkeletonSection />
-        <NewsPreviewSection />
         <PromoCarousel />
         <CTASectionAlternative />
       </div>
@@ -81,7 +79,6 @@ export function Home() {
           </div>
         </div>
       </section>
-      <NewsPreviewSection />
 
       {/* Promotional Carousel */}
       <PromoCarousel />

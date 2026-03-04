@@ -16,7 +16,7 @@ export default function SobrePage() {
     <>
       {/* Hero Section */}
       <HeroSection
-        Description="Conheça a história, missão e valores da Mundo Saudável."
+        Description="Conheça a história, missão e valores da Milones."
         StaticImage={ Meeting}
         message="Permita que nos apresentemos a si"
         title="Sobre Nós"

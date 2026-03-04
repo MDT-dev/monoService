@@ -13,7 +13,7 @@ import { Spotlight } from "@/components/ui2/spotlight"
 
 
 export default function TermosPage() {
-    const lastUpdated = "15 de Maio de 2025"
+    const lastUpdated = "15 de Janeiro de 2026"
 
     return (
         <>
@@ -118,8 +118,8 @@ export default function TermosPage() {
                                     />
                                     <div className="space-y-4 text-muted-foreground">
                                         <p>
-                                            Ao aceder ou utilizar o website da Mundo Saudável, os serviços disponibilizados através do
-                                            website, ou qualquer aplicação fornecida pela Mundo Saudável (coletivamente, os &quot;Serviços&quot;), está
+                                            Ao aceder ou utilizar o website da Milones, os serviços disponibilizados através do
+                                            website, ou qualquer aplicação fornecida pela Milones (coletivamente, os &quot;Serviços&quot;), está
                                             a concordar em ficar vinculado a estes Termos de Uso (&quot;Termos&quot;). Se não concordar com algum aspeto
                                             destes Termos, não deve utilizar os nossos Serviços.
                                         </p>
@@ -145,7 +145,7 @@ export default function TermosPage() {
                                         </p>
                                         <ul className="list-disc pl-6 space-y-2">
                                             <li>Tem pelo menos 18 anos de idade;</li>
-                                            <li>Tem plena capacidade legal para celebrar um contrato vinculativo com a Mundo Saudável; e</li>
+                                            <li>Tem plena capacidade legal para celebrar um contrato vinculativo com a Milones; e</li>
                                             <li>A sua utilização dos Serviços não viola qualquer lei ou regulamento aplicável.</li>
                                         </ul>
                                         <p>
@@ -164,23 +164,13 @@ export default function TermosPage() {
                                     />
                                     <div className="space-y-4 text-muted-foreground">
                                         <p>
-                                            A Mundo Saudável fornece soluções de tecnologia de informação, incluindo venda de hardware,
-                                            software, serviços de rede e segurança, bem como serviços de consultoria e suporte técnico.
+                                            A Milones disponibiliza produtos que podem ser adquiridos diretamente pelo website. Todas as compras realizadas serão enviadas via WhatsApp para confirmação e conclusão do pedido.
                                         </p>
                                         <p>
-                                            Todos os produtos e serviços estão sujeitos à disponibilidade. Reservamo-nos o direito de
-                                            modificar, suspender ou descontinuar qualquer aspeto dos nossos Serviços a qualquer momento, com
-                                            ou sem aviso prévio.
+                                            As descrições e preços dos produtos são indicativos e podem sofrer alterações sem aviso prévio. O envio do pedido pelo WhatsApp finaliza a transação e garante a comunicação direta com o cliente.
                                         </p>
                                         <p>
-                                            As descrições dos produtos e serviços, bem como os preços, estão sujeitos a alterações sem aviso
-                                            prévio. Embora nos esforcemos para fornecer informações precisas, não garantimos que as descrições
-                                            dos produtos ou outros conteúdos do website sejam precisos, completos, fiáveis, atuais ou livres
-                                            de erros.
-                                        </p>
-                                        <p>
-                                            Alguns produtos ou serviços podem estar sujeitos a termos e condições adicionais, que serão
-                                            apresentados no momento da compra ou contratação.
+                                            Todos os produtos estão sujeitos à disponibilidade. Reservamo-nos o direito de modificar ou descontinuar qualquer produto a qualquer momento.
                                         </p>
                                     </div>
                                 </div>
@@ -201,7 +191,7 @@ export default function TermosPage() {
                                         <p>
                                             Concedemos-lhe uma licença limitada, não exclusiva, não transferível e revogável para aceder e
                                             utilizar os Serviços para fins pessoais ou comerciais legítimos relacionados com a avaliação ou
-                                            utilização dos produtos e serviços da Mundo Saudável.
+                                            utilização dos produtos e serviços da Milones.
                                         </p>
                                         <p>Não é permitido:</p>
                                         <ul className="list-disc pl-6 space-y-2">
@@ -230,7 +220,7 @@ export default function TermosPage() {
                                     />
                                     <div className="space-y-4 text-muted-foreground">
                                         <p>
-                                            Em nenhuma circunstância a Mundo Saudável, os seus diretores, funcionários, agentes, parceiros ou
+                                            Em nenhuma circunstância a Milones, os seus diretores, funcionários, agentes, parceiros ou
                                             fornecedores serão responsáveis por quaisquer danos diretos, indiretos, incidentais, especiais,
                                             consequenciais ou punitivos, incluindo, sem limitação, perda de lucros, dados, uso, boa vontade ou
                                             outras perdas intangíveis, resultantes de:
@@ -243,7 +233,7 @@ export default function TermosPage() {
                                         </ul>
                                         <p>
                                             Esta limitação de responsabilidade aplica-se independentemente da base legal da reclamação e mesmo
-                                            que a Mundo Saudável tenha sido avisada da possibilidade de tais danos.
+                                            que a Milones tenha sido avisada da possibilidade de tais danos.
                                         </p>
                                     </div>
                                 </div>
@@ -256,14 +246,14 @@ export default function TermosPage() {
                                     />
                                     <div className="space-y-4 text-muted-foreground">
                                         <p>
-                                            Os produtos vendidos pela Mundo Saudável estão sujeitos às garantias fornecidas pelos respetivos
-                                            fabricantes. A Mundo Saudável não oferece garantias adicionais além das expressamente
+                                            Os produtos vendidos pela Milones estão sujeitos às garantias fornecidas pelos respetivos
+                                            fabricantes. A Milones não oferece garantias adicionais além das expressamente
                                             estabelecidas nos termos de garantia do fabricante, exceto quando indicado especificamente por
                                             escrito.
                                         </p>
                                         <p>
-                                            Os serviços prestados pela Mundo Saudável são garantidos conforme especificado nos contratos de
-                                            serviço individuais. Na ausência de termos específicos, a Mundo Saudável garante que os serviços
+                                            Os serviços prestados pela Milones são garantidos conforme especificado nos contratos de
+                                            serviço individuais. Na ausência de termos específicos, a Milones garante que os serviços
                                             serão realizados de maneira profissional e de acordo com os padrões da indústria.
                                         </p>
                                         <p>
@@ -283,7 +273,7 @@ export default function TermosPage() {
                                     />
                                     <div className="space-y-4 text-muted-foreground">
                                         <p>
-                                            A Mundo Saudável pode, a seu exclusivo critério, suspender ou encerrar o seu acesso a todos ou
+                                            A Milones pode, a seu exclusivo critério, suspender ou encerrar o seu acesso a todos ou
                                             parte dos Serviços, com ou sem aviso prévio, por qualquer motivo, incluindo, sem limitação,
                                             violação destes Termos.
                                         </p>
@@ -337,7 +327,7 @@ export default function TermosPage() {
                                                         <div>
                                                             <h4 className="font-medium">Propriedade Intelectual</h4>
                                                             <p className="text-sm text-muted-foreground">
-                                                                Todo o conteúdo do website é propriedade da Mundo Saudável e está protegido por
+                                                                Todo o conteúdo do website é propriedade da Milones e está protegido por
                                                                 direitos autorais.
                                                             </p>
                                                         </div>

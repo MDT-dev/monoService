@@ -1,11 +1,6 @@
-// Traduzido e adaptado para "Mundo Saudável"
 
 import Image from "next/image"
 import {
-    Award,
-    Users,
-    Globe,
-    TrendingUp,
     Target,
     Heart,
     Lightbulb,
@@ -14,12 +9,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-const stats = [
-    { icon: Users, value: "300+", label: "Clientes satisfeitos", color: "text-blue-600" },
-    { icon: Globe, value: "12+", label: "Províncias atendidas", color: "text-green-600" },
-    { icon: Award, value: "10+", label: "Anos de experiência", color: "text-purple-600" },
-    { icon: TrendingUp, value: "95%", label: "Taxa de fidelização", color: "text-orange-600" }
-]
+
 
 const values = [
     {
@@ -61,17 +51,20 @@ export default function SobreNos() {
                             Ferramentas que Constroem o Futuro
                         </h2>
 
+
+
+
                         <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                             <p>
-                                Há mais de 10 anos, a <strong className="text-gray-900">Milones</strong> atua no mercado fornecendo ferramentas e soluções de qualidade para os sectores da construção civil e electricidade.
+                                <strong className="text-gray-900">A Milones</strong>  atua no mercado oferecendo produtos e soluções de qualidade para diferentes necessidades do dia a dia.
                             </p>
 
                             <p>
-                                Trabalhamos com uma vasta gama de produtos, desde ferramentas manuais e eléctricas até materiais essenciais para instalações eléctricas, sempre com foco em durabilidade, segurança e eficiência.
+                                Trabalhamos com uma ampla variedade de produtos, sempre com foco em durabilidade, segurança e eficiência, garantindo que cada cliente encontre o que procura com facilidade e confiança.
                             </p>
 
                             <p>
-                                Atendemos profissionais, empresas e particulares, oferecendo um atendimento próximo, suporte técnico e soluções adequadas às reais necessidades de cada projecto.
+                                Atendemos empresas e particulares, oferecendo um atendimento próximo, suporte dedicado e soluções adequadas às reais necessidades de cada cliente.
                             </p>
                         </div>
                     </div>
@@ -81,7 +74,7 @@ export default function SobreNos() {
                     <div className="order-1 xl:order-2 relative">
                         <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                             <Image
-                                src="/assets/logo2.png"
+                                src="/milones.png"
                                 alt="Equipe e instalações da M Milones"
                                 fill
                                 className="object-cover"
