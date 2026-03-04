@@ -7,7 +7,7 @@ import { useProductsFilter } from "@/hooks/useFilterProduct"
 import { Button } from "@/components/ui/button"
 
 
-export function ProductsFilter() {
+export default function ProductsFilter() {
 
     const searchParams = useSearchParams()
     const categoria = searchParams.get("categoria") ?? ""
