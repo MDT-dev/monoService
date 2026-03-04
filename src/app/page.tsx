@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = 'force-dynamic'
 
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product-card";
@@ -8,9 +9,9 @@ import { ArrowRight } from "lucide-react";
 import HeroCarousel from "@/components/carousel/CaroulseHero";
 import NewsPreviewSection from "@/components/news/news-preview-section";
 import CTASectionAlternative from "@/components/cta-section";
-import { useAllProducts} from "@/hooks/useProducts";
-import { ErrorState } from "@/components/error-state"; 
-import { SkeletonSection } from "@/components/product-skeleton"; 
+import { useAllProducts } from "@/hooks/useProducts";
+import { ErrorState } from "@/components/error-state";
+import { SkeletonSection } from "@/components/product-skeleton";
 
 export default function HomePage() {
   const { data, error, isLoading, refetch } = useAllProducts()
