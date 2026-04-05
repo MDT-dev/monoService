@@ -11,9 +11,9 @@ const contactInfo = [
     icon: Phone,
     title: "Números de Telefone",
     details: [
-      { label: "Escritório Principal", value: "+ 244 930 678 230" },
-      { label: "Linha de Emergência", value: "+ 244 930 678 230" },
-      { label: "Suporte Técnico", value: "+ 244 930 678 230" },
+      { label: "Escritório Principal", value: "+244 935 410 8500" },
+      { label: "Linha de Emergência", value: "+244 935 410 850" },
+      { label: "Suporte Técnico", value: "+244 935 410 850" },
     ],
   },
   {
