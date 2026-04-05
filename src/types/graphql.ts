@@ -1,4 +1,4 @@
-import { Category } from './category';
+import { Category } from "./category";
 
 export type CategoriesResponse = {
   categories: Category[];
@@ -8,13 +8,15 @@ export interface ProductDetailResponse {
   product: Product;
 }
 
-
 export interface Product {
   id: string;
   name: string;
   slug: string;
   price: number;
   shortDescription: string;
+  description?: {
+    html: string;
+  };
   promoPrice?: number;
   stock: number;
   images: Array<{

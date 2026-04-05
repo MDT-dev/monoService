@@ -46,7 +46,7 @@ export const ProductCard: React.FC<Product> = ({
       <div className="group bg-white rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md border border-gray-100">
 
         {/* Image Container */}
-        <div className="relative aspect-square bg-gray-50 overflow-hidden">
+        <div className="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" onClick={() => setShowModal(true)}>
           <Image
             width={250}
             height={250}

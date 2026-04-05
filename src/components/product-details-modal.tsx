@@ -18,7 +18,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "@/components/ui/dialog"
 import { Product } from "@/types/graphql"
 
@@ -240,14 +239,21 @@ const ProductContent = ({
       <div className="space-y-4">
         {activeTab === "description" && (
           <div className="space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              {product.shortDescription}
-            </p>
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <p className="text-sm text-green-900">
-                Este é um excelente produto com ótima qualidade. Procure nossas seções para mais informações detalhadas.
+
+            {product.description?.html ? (
+              <div
+                className="prose dark:prose-invert max-w-none prose-sm sm:prose-base lg:prose-lg"
+                dangerouslySetInnerHTML={{
+                  __html: product.description.html
+                    .replace(/<li><div>/g, "<li>")
+                    .replace(/<\/div><\/li>/g, "</li>")
+                }}
+              />
+            ) : (
+              <p className="text-gray-700 leading-relaxed">
+                {product.shortDescription}
               </p>
-            </div>
+            )}
           </div>
         )}
 
@@ -471,15 +477,39 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
 
   // Render Dialog for desktop
   return (
-    <Dialog open={isOpen} onOpenChange={handleCloseModal}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="border-b border-gray-100 pb-6">
-          <DialogTitle>Detalhes do Produto</DialogTitle>
-          <DialogClose className="absolute right-4 top-4 p-1 hover:bg-gray-100 rounded transition-colors" aria-label="Close modal">
+    // <Dialog open={isOpen} onOpenChange={handleCloseModal}>
+    //    <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-xl scrol">
+    //     <DialogHeader className="border-b border-gray-100 pb-6">
+    //       <DialogTitle>Detalhes do Produto</DialogTitle>
+    //       <DialogClose className="absolute right-4 top-4 p-1 hover:bg-gray-100 rounded transition-colors" aria-label="Close modal">
+    //         <X className="w-6 h-6 text-gray-600" />
+    //       </DialogClose>
+    //     </DialogHeader>
+    //     <div className="px-2">
+    //       <ProductContent
+    //         product={product}
+    //         quantity={quantity}
+    //         setQuantity={setQuantity}
+    //         isWishlisted={isWishlisted}
+    //         setIsWishlisted={setIsWishlisted}
+    //         activeTab={activeTab}
+    //         setActiveTab={setActiveTab}
+    //         showSuccess={showSuccess}
+    //         handleAddToCart={handleAddToCart}
+    //         handleShare={handleShare}
+    //       />
+    //     </div>
+    //   </DialogContent>
+    // </Dialog>
+    <Drawer open={isOpen} onOpenChange={handleCloseModal}>
+      <DrawerContent>
+        <DrawerHeader className="border-b border-gray-100">
+          <DrawerTitle>Detalhes do Produto</DrawerTitle>
+          <DrawerClose className="absolute right-4 top-4 p-1 hover:bg-gray-100 rounded transition-colors" aria-label="Close drawer">
             <X className="w-6 h-6 text-gray-600" />
-          </DialogClose>
-        </DialogHeader>
-        <div className="px-2">
+          </DrawerClose>
+        </DrawerHeader>
+        <div className="px-4 pb-8 overflow-y-auto max-h-full">
           <ProductContent
             product={product}
             quantity={quantity}
@@ -493,7 +523,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
             handleShare={handleShare}
           />
         </div>
-      </DialogContent>
-    </Dialog>
+      </DrawerContent>
+    </Drawer>
   )
 }

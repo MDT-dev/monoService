@@ -7,6 +7,10 @@ export const PRODUCT_DETAIL_QUERY = `
       name
       slug
       shortDescription
+      description {
+        html
+      }
+
       price
       promoPrice
       isActive
@@ -29,19 +33,13 @@ export const PRODUCT_DETAIL_QUERY = `
 `;
 
 export const ALL_PRODUCTS_QUERY = gql`
- 
   query Products(
     $orderBy: ProductOrderByInput
     $skip: Int
     $first: Int
     $where: ProductWhereInput
   ) {
-    products(
-      orderBy: $orderBy
-      skip: $skip
-      first: $first
-      where: $where
-    ) {
+    products(orderBy: $orderBy, skip: $skip, first: $first, where: $where) {
       id
       name
       slug
@@ -141,6 +139,9 @@ export const ALL_PRODUCTS_QUERY_SEARCH = gql`
       slug
       price
       shortDescription
+      description {
+        html
+      }
       promoPrice
       stock
       images {

@@ -8,13 +8,13 @@ import ContactSection from "@/components/contacto/contactSolution/Contact-New";
 export const metadata: Metadata = {
   title: "Contacte-nos | Milones",
   description:
-    "Entre em contacto com a Milones para serviços e produtos de agricultura, pecuária, apicultura, avicultura e piscicultura. Estamos disponíveis para responder a todas as suas questões.",
+    "Entre em contacto com a Milones para serviços e produtos diversos. Estamos disponíveis para responder a todas as suas questões.",
   keywords:
-    "contacto, agricultura Angola, pecuária Angola, apicultura, avicultura, piscicultura, fornecedores agrícolas, Angola, Luanda, Milones",
+    "contacto,  angola, produto angola, Luanda, Milones",
   openGraph: {
     title: "Contacte-nos | Milones",
     description:
-      "Fale com a Milones e descubra como podemos fornecer produtos agrícolas frescos e serviços de pecuária, apicultura, avicultura e piscicultura.",
+      "Fale com a Milones e descubra como podemos fornecer produtos e serviços de qualidade para atender às suas necessidades. Entre em contacto hoje mesmo!",
     url: "https://www.milones.ao/contacto",
     siteName: "Milones",
     locale: "pt_AO",
@@ -28,7 +28,7 @@ export default function ContactoPage() {
       {/* Hero Section */}
 
       <HeroSection
-        Description="Entre em contato com nossa equipe de especialistas em agricultura. Estamos aqui para ajudar você a crescer."
+        Description="Entre em contato com nossa equipe de especialistas. Estamos aqui para ajudar você a crescer."
         StaticImage={"/assets/logo2.png"}
         message="Estamos aqui para ajudar"
         title="Contacte-nos"

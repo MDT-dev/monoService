@@ -34,6 +34,9 @@ export interface AllProducts {
   promoPrice: number;
 
   shortDescription: string;
+  description?: {
+    html: string;
+  };
   stock: number;
   isActive: boolean;
   sku: string;
