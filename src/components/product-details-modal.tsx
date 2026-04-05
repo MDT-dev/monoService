@@ -242,7 +242,7 @@ const ProductContent = ({
 
             {product.description?.html ? (
               <div
-                className="prose dark:prose-invert max-w-none prose-sm sm:prose-base lg:prose-lg"
+                className="prose dark:prose-invert max-w-none prose-sm sm:prose-base lg:prose-lg w-3/5"
                 dangerouslySetInnerHTML={{
                   __html: product.description.html
                     .replace(/<li><div>/g, "<li>")
@@ -368,16 +368,26 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
     }
 
     return (
-      <Dialog open={isOpen} onOpenChange={handleCloseModal}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Carregando...</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
+      // <Dialog open={isOpen} onOpenChange={handleCloseModal}>
+      //   <DialogContent>
+      //     <DialogHeader>
+      //       <DialogTitle>Carregando...</DialogTitle>
+      //     </DialogHeader>
+      //     <div className="space-y-4">
+      //       <LoadingContent />
+      //     </div>
+      //   </DialogContent>
+      // </Dialog>
+      <Drawer open={isOpen} onOpenChange={handleCloseModal}>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Carregando...</DrawerTitle>
+          </DrawerHeader>
+          <div className="px-4 pb-8 space-y-4">
             <LoadingContent />
           </div>
-        </DialogContent>
-      </Dialog>
+        </DrawerContent>
+      </Drawer>
     )
   }
 
@@ -502,7 +512,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
     //   </DialogContent>
     // </Dialog>
     <Drawer open={isOpen} onOpenChange={handleCloseModal}>
-      <DrawerContent>
+      <DrawerContent className="h-full">
         <DrawerHeader className="border-b border-gray-100">
           <DrawerTitle>Detalhes do Produto</DrawerTitle>
           <DrawerClose className="absolute right-4 top-4 p-1 hover:bg-gray-100 rounded transition-colors" aria-label="Close drawer">

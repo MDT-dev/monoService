@@ -133,6 +133,7 @@ export const ALL_PRODUCTS_QUERY_SEARCH = gql`
       where: {
         subCategory: { slug: $subcategoria, category: { slug: $categoria } }
       }
+      first: 100
     ) {
       id
       name
