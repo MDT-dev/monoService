@@ -5,14 +5,13 @@ import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 interface Props {
-    children: ReactNode
-    params: {
-        slug: string
-    }
+  children: ReactNode
+  params: Promise<{
+    slug: string
+  }>
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = params
+    const { slug } = await params
 
     try {
 
@@ -110,5 +109,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function ProductLayout({ children }: Props) {
+    
     return <>{children}</>
 }
