@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 
 
-        const productUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://milones.ao'}/produto/${slug}`
+        const productUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://milones.ao'}/produtos/${slug}`
         const imageUrl = product?.thumbnail?.url || `${process.env.NEXT_PUBLIC_SITE_URL || 'https://milones.ao'}/og-image.png`
 
         const discount = product?.promoPrice
