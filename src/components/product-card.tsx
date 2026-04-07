@@ -1,18 +1,19 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import Image from "next/image"
-import { Heart, Share2, ShoppingCart } from "lucide-react"
-import { useCart } from "@/lib/cart-context"
-import { formatKz } from "@/util/formatCurrency"
-import { ProductDetailsModal } from "./product-details-modal"
-import { Badge } from "./ui/badge"
-import { Product } from "@/types/graphql"
+import type React from "react";
+import { useState } from "react";
+import Image from "next/image";
+import { Heart, Share2, ShoppingCart } from "lucide-react";
+import { useCart } from "@/lib/cart-context";
+import { formatKz } from "@/util/formatCurrency";
+import { Badge } from "./ui/badge";
+import { Product } from "@/types/graphql";
+import Link from "next/link";
 
 export const ProductCard: React.FC<Product> = ({
   id,
   name,
+  slug,
   price,
   promoPrice,
   shortDescription,
@@ -20,12 +21,13 @@ export const ProductCard: React.FC<Product> = ({
   isActive,
   subCategory,
 }) => {
-  const { addToCart } = useCart()
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [isWishlisted, setIsWishlisted] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+  const { addToCart } = useCart();
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
-  const discount = promoPrice ? Math.round(((promoPrice - price) / promoPrice) * 100) : 0
+  const discount = promoPrice
+    ? Math.round(((promoPrice - price) / promoPrice) * 100)
+    : 0;
 
   const handleAddToCart = () => {
     addToCart({
@@ -35,26 +37,28 @@ export const ProductCard: React.FC<Product> = ({
       quantity: 1,
       image: thumbnail.url,
       category: subCategory?.category?.name,
-    })
-    setShowSuccess(true)
-    setTimeout(() => setShowSuccess(false), 2000)
-  }
+    });
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000);
+  };
 
   return (
     <>
       {/* Minimalist Card */}
+
+
       <div className="group bg-white rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md border border-gray-100">
-
         {/* Image Container */}
-        <div className="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" onClick={() => setShowModal(true)}>
-          <Image
-            width={250}
-            height={250}
-            src={thumbnail.url}
-            alt={name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-
+        <div className="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer">
+          <Link href={`/produtos/${slug}`}>
+            <Image
+              width={150}
+              height={150}
+              src={thumbnail.url}
+              alt={name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </Link>
           {/* Quick Action Buttons - Top Right */}
           <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button
@@ -66,13 +70,14 @@ export const ProductCard: React.FC<Product> = ({
                 className={`w-5 h-5 ${isWishlisted ? "fill-red-500 text-red-500" : "text-gray-600"}`}
               />
             </button>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-white p-2 rounded-full hover:bg-gray-100 shadow-sm transition-colors"
-              aria-label="View details"
-            >
-              <Share2 className="w-5 h-5 text-gray-600" />
-            </button>
+            <Link href={`/produtos/${slug}`}>
+              <button
+                className="bg-white p-2 rounded-full hover:bg-gray-100 shadow-sm transition-colors"
+                aria-label="View details"
+              >
+                <Share2 className="w-5 h-5 text-gray-600" />
+              </button>
+            </Link>
           </div>
 
           {/* Discount Badge */}
@@ -85,7 +90,9 @@ export const ProductCard: React.FC<Product> = ({
           {/* Stock Status Overlay */}
           {!isActive && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <span className="text-white text-sm font-medium">Fora de Estoque</span>
+              <span className="text-white text-sm font-medium">
+                Fora de Estoque
+              </span>
             </div>
           )}
 
@@ -99,17 +106,20 @@ export const ProductCard: React.FC<Product> = ({
 
         {/* Content - Minimalist Clean */}
         <div className="p-4 space-y-3">
-
           {/* Category */}
           <p className="text-xs text-gray-500 uppercase tracking-wide font-medium">
-            {subCategory?.category?.name || "Produto"} <Badge className="text-[9px] normal-case ">{subCategory?.name}</Badge>
+            {subCategory?.category?.name || "Produto"}{" "}
+            <Badge className="text-[9px] normal-case ">
+              {subCategory?.name}
+            </Badge>
           </p>
 
           {/* Product Name */}
-          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
-            {name}
-          </h3>
-
+          <Link href={`/produtos/${slug}`}>
+            <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
+              {name}
+            </h3>
+          </Link>
           {/* Short Description */}
           <p className="text-xs text-gray-600 line-clamp-1">
             {shortDescription}
@@ -129,7 +139,9 @@ export const ProductCard: React.FC<Product> = ({
 
           {/* Stock Status */}
           <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-            <span className={`text-xs font-medium ${isActive ? "text-green-600" : "text-red-600"}`}>
+            <span
+              className={`text-xs font-medium ${isActive ? "text-green-600" : "text-red-600"}`}
+            >
               {isActive ? "Em estoque" : "Indisponível"}
             </span>
             <span className="text-xs text-gray-500">Entrega rápida</span>
@@ -137,12 +149,11 @@ export const ProductCard: React.FC<Product> = ({
 
           {/* CTA Buttons */}
           <div className="flex gap-2 pt-2">
-            <button
-              onClick={() => setShowModal(true)}
-              className="flex-1 text-sm font-medium text-gray-700 hover:text-gray-900 py-2 border border-gray-200 rounded hover:bg-gray-50 transition-colors"
-            >
-              Detalhes
-            </button>
+            <Link href={`/produtos/${slug}`}>
+              <button className="flex-1 text-sm font-medium text-gray-700 hover:text-gray-900 py-2 border border-gray-200 rounded hover:bg-gray-50 transition-colors">
+                Detalhes
+              </button>
+            </Link>
             <button
               onClick={handleAddToCart}
               disabled={!isActive}
@@ -155,12 +166,6 @@ export const ProductCard: React.FC<Product> = ({
         </div>
       </div>
 
-      {/* Product Details Modal */}
-      <ProductDetailsModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        productId={id}
-      />
     </>
-  )
-}
+  );
+};

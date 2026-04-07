@@ -49,15 +49,15 @@ export function Navbar() {
   const categoriesList: Category[] = data?.categories ?? []
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("nameProduto") || "")
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "")
 
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
       const params = new URLSearchParams()
-      params.set("nameProduto", searchQuery)
-      router.push(`/produtos?search=${params.toString()}&orderBy=createdAt_ASC&page=1&pageSize=9`)
+      params.set("search", searchQuery)
+      router.push(`/produtos?${params.toString()}&orderBy=createdAt_ASC&page=1&pageSize=9`)
     }
   }
 

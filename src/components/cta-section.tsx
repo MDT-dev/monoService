@@ -85,7 +85,7 @@ export default function CTASectionAlternative() {
                   <div>
                     <p className="font-medium text-gray-900">Telefone</p>
                     <Link href="tel:+244923924881" className="text-green-600 hover:underline">
-                    +244 923 924 881
+                    +244 935 410 850
                     </Link>
                   </div>
                 </div>

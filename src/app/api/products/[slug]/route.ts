@@ -5,21 +5,21 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { slug } = await context.params;
 
-    if (!id) {
+    if (!slug) {
       return NextResponse.json(
-        { error: "ID do produto é obrigatório" },
+        { error: "Slug do produto é obrigatório" },
         { status: 400 }
       );
     }
 
     const data = await fetchHygraph<ProductDetailResponse>({
       query: PRODUCT_DETAIL_QUERY,
-      variables: { id },
+      variables: { slug },
     });
 
     console.log("DATA:", data);

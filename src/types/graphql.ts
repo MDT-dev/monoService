@@ -17,6 +17,7 @@ export interface Product {
   description?: {
     html: string;
   };
+ 
   promoPrice?: number;
   stock: number;
   images: Array<{

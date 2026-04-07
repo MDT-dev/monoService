@@ -12,12 +12,64 @@ import { Providers } from "@/contexts/providers";
 import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "next-themes"
 
+
 export const metadata: Metadata = {
-  title: "Milones Lda - Soluções Profissionais",
-  description:
-    "Milones Lda oferece produtos e serviços de qualidade. Explore nosso catálogo completo com fácil busca, filtros inteligentes e pagamento seguro.",
-  generator: "v0.app",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.milones.ao'),
+  title: 'Milones Lda - Soluções Profissionais',
+  description: 'Compre produtos de qualidade com os melhores preços. Entrega rápida e garantia de satisfação.',
+  generator: 'milones-website',
+  keywords: ['loja online', 'produtos', 'compras', 'melhor preço', 'entrega rápida'],
+  openGraph: {
+    type: 'website',
+    locale: 'pt_AO',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.milones.ao',
+    siteName: 'Milones Lda',
+    title: 'Milones Lda - Soluções Profissionais',
+    description: 'Compre produtos de qualidade com os melhores preços. Entrega rápida e garantia de satisfação.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Milones',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Milones Lda - Soluções Profissionais',
+    description: 'Compre produtos de qualidade com os melhores preços.',
+    creator: '@milones',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      {
+        url: '/icon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+    ],
+    apple: '/apple-icon.png',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
 }
+
+
+
+
+
+
+
+
+
+
+
 export const viewport: Viewport = {
   colorScheme: "light dark",
 };

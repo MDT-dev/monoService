@@ -24,6 +24,7 @@ export type Product = {
   isActive: boolean;
   sku: string;
   subCategory: subCategory;
+  updatedAt: string;
 };
 
 export interface AllProducts {

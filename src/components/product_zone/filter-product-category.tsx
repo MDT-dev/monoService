@@ -18,7 +18,10 @@ export  function ProductsFilter() {
     const allProducts = useMemo(() => data?.products ?? [], [data])
 
     const clearFilters = () => {
-
+        const url = new URL(window.location.href)
+        url.searchParams.delete("categoria")
+        url.searchParams.delete("subcategoria")
+        window.location.href = url.toString()
     }
     
     return (

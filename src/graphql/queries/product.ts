@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const PRODUCT_DETAIL_QUERY = `
-  query GetProductDetail($id: ID!) {
-    product(where: { id: $id }) {
+  query GetProductDetail($slug: String!) {
+    product(where: { slug: $slug }) {
       id
       name
       slug
@@ -10,7 +10,6 @@ export const PRODUCT_DETAIL_QUERY = `
       description {
         html
       }
-
       price
       promoPrice
       isActive
@@ -23,9 +22,11 @@ export const PRODUCT_DETAIL_QUERY = `
       subCategory {
         id
         name
+        slug
         category {
           id
           name
+          slug
         }
       }
     }
@@ -53,6 +54,10 @@ export const ALL_PRODUCTS_QUERY = gql`
       }
       isActive
       sku
+      images {
+        url
+        fileName
+      }
       thumbnail {
         url
         fileName
@@ -202,6 +207,17 @@ export const SEARCH = gql`
           name
         }
       }
+    }
+  }
+`;
+
+export const AllProductsSiteMap = gql`
+  query Products {
+    products(first: 200) {
+      id
+      slug
+      name
+      updatedAt
     }
   }
 `;
